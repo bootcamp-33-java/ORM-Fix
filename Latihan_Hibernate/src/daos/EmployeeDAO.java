@@ -53,10 +53,7 @@ public class EmployeeDAO implements IEmployeeDAO {
         session = this.sessionFactory.openSession();
         transaction = session.beginTransaction();
         try {
-            String query = "from Employee where employeeId=:id";
-            Query queri = session.createQuery(query);
-            queri.setParameter("id", id);
-            employee = (Employee) queri.uniqueResult();
+            employee = (Employee) session.get(Employee.class, id);
         } catch (Exception e) {
             e.printStackTrace();
             if (transaction != null) {
@@ -74,11 +71,15 @@ public class EmployeeDAO implements IEmployeeDAO {
         session = this.sessionFactory.openSession();
         transaction = session.beginTransaction();
         try {
-            key = "%" + key + "%";
-            String query = "from Employee where employeeId=:id";
+            String query = "from Employee e where lower(firstName) like lower(:key)  "
+                    + "or lower(lastName) like lower(:key) or lower(email) like lower(:key)  "
+                    + "or lower(jobId) like lower(:key) or departmentId like :key or managerId like :key "
+                    + "or phoneNumber like :key or employeeId like :key or salary like :key or commissionPct like :key "
+                    + "or hireDate like :key";
             Query queri = session.createQuery(query);
-            queri.setParameter("id", key);
-            employees = (List<Employee>) queri.uniqueResult();
+            queri.setParameter("key", "%" + key + "%");
+            employees = queri.list();
+            
         } catch (Exception e) {
             e.printStackTrace();
             if (transaction != null) {
@@ -111,20 +112,22 @@ public class EmployeeDAO implements IEmployeeDAO {
     }
 
     @Override
-    public void delete(int id) {
-         session = sessionFactory.getCurrentSession();
-                 transaction = session.beginTransaction();
+    public boolean delete(int id) {
+        boolean result = false;
+        session = this.sessionFactory.openSession();
+        transaction = session.beginTransaction();
         try {
-            Employee em= (Employee)session.load(Employee.class,id);
-    session.delete(em);
-    transaction.commit();
+            Employee em = (Employee) session.load(Employee.class, id);
+            session.delete(em);
+            transaction.commit();
+            result = true;
         } catch (Exception e) {
             e.printStackTrace();
             if (transaction != null) {
                 transaction.rollback();
             }
         }
-    
+        return result;
     }
 
 //    boolean result = false;

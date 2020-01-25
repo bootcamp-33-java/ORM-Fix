@@ -21,5 +21,5 @@ public interface IEmployeeDAO {
     
     public boolean save(Employee e);
     
-    public void delete(int id);
+    public boolean delete(int id);
 }

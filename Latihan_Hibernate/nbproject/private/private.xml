@@ -2,6 +2,13 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/Bootcamp%20Mii/Latihan%20Java/Latihan_Hibernate/src/daos/RegionDAO.java</file>
+            <file>file:/D:/Bootcamp%20Mii/Latihan%20Java/Latihan_Hibernate/src/models/Employee.java</file>
+            <file>file:/D:/Bootcamp%20Mii/Latihan%20Java/Latihan_Hibernate/src/hibernate.cfg.xml</file>
+            <file>file:/D:/Bootcamp%20Mii/Latihan%20Java/Latihan_Hibernate/src/tools/manualTest.java</file>
+            <file>file:/D:/Bootcamp%20Mii/Latihan%20Java/Latihan_Hibernate/src/idaos/IEmployeeDAO.java</file>
+            <file>file:/D:/Bootcamp%20Mii/Latihan%20Java/Latihan_Hibernate/src/daos/EmployeeDAO.java</file>
+        </group>
     </open-files>
 </project-private>
