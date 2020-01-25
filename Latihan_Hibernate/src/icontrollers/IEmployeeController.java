@@ -15,13 +15,11 @@ import models.Employee;
  */
 public interface IEmployeeController {
     public List<Employee> getAll();
-    
-//    public Employee getById(String id);
 
     public List<Employee> search(String key);
     
     public String save(String id, String firstName, String lastName, String email, String phoneNumber, 
-            String hireDate, String jobId, String salary, String commissionPct, String managerId, String departmentId) throws ParseException;
+            String hireDate, String salary, String commissionPct, String managerId, String departmentId, String jobId) throws ParseException;
     
     public String delete (String id);
 }
