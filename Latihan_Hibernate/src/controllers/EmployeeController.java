@@ -37,14 +37,11 @@ public class EmployeeController implements IEmployeeController {
 
     @Override
     public List<Employee> search(String key) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         return iedao.search(key);
     }
 
     @Override
     public String delete(String id) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-
         if (iedao.delete(Integer.parseInt(id))) {
             return "Data Berhasil Dihapus";
         } else {
@@ -52,25 +49,22 @@ public class EmployeeController implements IEmployeeController {
         }
     }
 
-//    @Override
-//    public Employee getById(String id) {
-////        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//        return iedao.getById(Integer.parseInt(id));
-//    }
     @Override
     public String save(String id, String firstName, String lastName, String email, String phoneNumber, String hireDate,
-         String jobId, String salary, String commissionPct, String managerId, String departmentId) throws ParseException {
+            String salary, String commissionPct, String managerId, String departmentId, String jobId) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date date = simpleDateFormat.parse(hireDate);
-        Department  d=new Department();
-        d.setDepartmentId(Integer.parseInt(departmentId));
         
-        Job j=new Job();
-    j.setJobId(jobId);
-        Employee e = new Employee(Integer.parseInt(id), firstName, lastName, email, phoneNumber, date,new BigDecimal(salary),new BigDecimal(commissionPct),Integer.parseInt(managerId), d, j);
+        Department d = new Department();
+        d.setDepartmentId(Integer.parseInt(departmentId));
+
+        Job j = new Job();
+        j.setJobId(jobId);
+        
+        Employee e = new Employee(Integer.parseInt(id), firstName, lastName, email, phoneNumber, date, new BigDecimal(salary), new BigDecimal(commissionPct), d,Integer.parseInt(managerId), j);
         if (iedao.save(e)) {
             return "Data Berhasil Disimpan";
-        }else{
+        } else {
             return "Data Gagal Disimpan";
         }
     }
