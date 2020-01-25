@@ -63,7 +63,7 @@ public class manualTest {
                 List<Employee> employees=edao.search("163");
                 for (Employee e : employees) {
                     System.out.println(e.getEmployeeId()+" "+e.getFirstName()+" "+e.getLastName()+" "+
-                                        e.getPhoneNumber()+" "+e.getSalary()+" "+e.getCommissionPct()+" "+e.getManagerId()+" "+e.getDepartmentId());
+                                        e.getPhoneNumber()+" "+e.getSalary()+" "+e.getCommissionPct()+" "+e.getManagerId());
                 }
     }
 }
