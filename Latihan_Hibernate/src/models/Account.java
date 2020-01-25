@@ -46,7 +46,7 @@ public class Account implements Serializable {
     @Column(name = "PASSWORD")
     private String password;
     
-    @JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "EMPLOYEE_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "ACCOUNT_ID", referencedColumnName = "EMPLOYEE_ID", insertable = false, updatable = false)
     @OneToOne(optional = false, fetch = FetchType.LAZY)
     private Employee employeeId;
 
