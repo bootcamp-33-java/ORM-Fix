@@ -45,7 +45,7 @@ public class manualTest {
          EmployeeDAO edao= new EmployeeDAO(sessionFactory);
 //        Employee em = new Employee(90, "Muhammad", "Nur Iqbal", "omBoyen@gmail.com", "08344456", date, BigDecimal.valueOf(20000), BigDecimal.valueOf(0), d, 200, j);
 //        System.out.println(edao.save(em));  
-//        System.out.println(edao.delete(5));
+        System.out.println(edao.getAll());
 //        System.out.println(edao.delete(90));
     }
 }
