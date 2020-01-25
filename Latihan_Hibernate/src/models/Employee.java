@@ -8,7 +8,9 @@ package models;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,10 +19,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -79,6 +84,9 @@ public class Employee implements Serializable {
     @JoinColumn(name = "JOB_ID", referencedColumnName = "JOB_ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Job jobId;
+    
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "employeeId", fetch = FetchType.LAZY)
+    private Account account;
 
     public Employee() {
     }
@@ -220,5 +228,17 @@ public class Employee implements Serializable {
     public String toString() {
         return "models.Employee[ employeeId=" + employeeId + " ]";
     }
+
+    
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    
 
 }
