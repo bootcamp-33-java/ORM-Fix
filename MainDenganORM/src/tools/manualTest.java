@@ -5,6 +5,7 @@
  */
 package tools;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 /**
@@ -17,13 +18,15 @@ public class manualTest {
      * @param args the command line arguments
      */
     public void test(){
+        
         SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
         System.out.println(factory);
         System.out.println(HibernateUtil.getSessionFactory());
     }
     public static void main(String[] args) {
         manualTest testing = new manualTest();
-//        testing.test();
+        testing.test();
 
 
 }
