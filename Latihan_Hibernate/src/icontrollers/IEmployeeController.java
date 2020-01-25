@@ -5,6 +5,7 @@
  */
 package icontrollers;
 
+import java.text.ParseException;
 import java.util.List;
 import models.Employee;
 
@@ -14,12 +15,13 @@ import models.Employee;
  */
 public interface IEmployeeController {
     public List<Employee> getAll();
+    
+//    public Employee getById(String id);
 
     public List<Employee> search(String key);
     
-    public String insert (Employee r);
-    
-    public String update (Employee r);
+    public String save(String id, String firstName, String lastName, String email, String phoneNumber, 
+            String hireDate, String jobId, String salary, String commissionPct, String managerId, String departmentId) throws ParseException;
     
     public String delete (String id);
 }
