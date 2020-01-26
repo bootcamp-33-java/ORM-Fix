@@ -22,16 +22,13 @@ import org.hibernate.SessionFactory;
  *
  * @author yuyun
  */
-public class manualTest {
+public class ManualTestEmployee {
 
     public static void main(String[] args) throws ParseException {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        System.out.println(sessionFactory);
-        System.out.println(HibernateUtil.getSessionFactory());
+//        System.out.println(sessionFactory);
+//        System.out.println(HibernateUtil.getSessionFactory());
 
-        RegionDAO rdao = new RegionDAO(sessionFactory);
-        Region r = new Region(BigDecimal.valueOf(12), "Boy");
-        System.out.println(rdao.insert(r));
 
         Department d = new Department();
         d.setDepartmentId(20);
@@ -59,11 +56,11 @@ public class manualTest {
 //                Employee e=edao.getById(90);
 //                System.out.println(e.getEmployeeId()+" "+e.getFirstName()+" "+e.getLastName());
 
-                //getAll
-                List<Employee> employees=edao.search("163");
-                for (Employee e : employees) {
-                    System.out.println(e.getEmployeeId()+" "+e.getFirstName()+" "+e.getLastName()+" "+
-                                        e.getPhoneNumber()+" "+e.getSalary()+" "+e.getCommissionPct()+" "+e.getManagerId());
-                }
+//                //getAll
+//                List<Employee> employees=edao.search("163");
+//                for (Employee e : employees) {
+//                    System.out.println(e.getEmployeeId()+" "+e.getFirstName()+" "+e.getLastName()+" "+
+//                                        e.getPhoneNumber()+" "+e.getSalary()+" "+e.getCommissionPct()+" "+e.getManagerId()+" "+e.getDepartmentId().getDepartmentId());
+//                }
     }
 }

@@ -126,6 +126,8 @@ public class EmployeeDAO implements IEmployeeDAO {
             if (transaction != null) {
                 transaction.rollback();
             }
+        }finally {
+            session.close();
         }
         return result;
     }

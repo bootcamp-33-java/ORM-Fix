@@ -35,8 +35,9 @@ public class Account implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "ACCOUNT_ID")
-    private Integer accountId;
+    @JoinColumn(name = "ACCOUNT_ID", referencedColumnName = "EMPLOYEE_ID", insertable = false, updatable = false)
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    private Employee accountId;
     
     @Basic(optional = false)
     @Column(name = "USERNAME")
@@ -46,28 +47,24 @@ public class Account implements Serializable {
     @Column(name = "PASSWORD")
     private String password;
     
-    @JoinColumn(name = "ACCOUNT_ID", referencedColumnName = "EMPLOYEE_ID", insertable = false, updatable = false)
-    @OneToOne(optional = false, fetch = FetchType.LAZY)
-    private Employee employeeId;
-
     public Account() {
     }
 
-    public Account(Integer accountId) {
+    public Account(Employee accountId) {
         this.accountId = accountId;
     }
 
-    public Account(Integer accountId, String username, String password) {
+    public Account(Employee accountId, String username, String password) {
         this.accountId = accountId;
         this.username = username;
         this.password = password;
     }
 
-    public Integer getAccountId() {
+    public Employee getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(Integer accountId) {
+    public void setAccountId(Employee accountId) {
         this.accountId = accountId;
     }
 
@@ -87,13 +84,6 @@ public class Account implements Serializable {
         this.password = password;
     }
 
-    public Employee getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(Employee employeeId) {
-        this.employeeId = employeeId;
-    }
 
     @Override
     public int hashCode() {
