@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import models.Department;
+import models.Employee;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -38,13 +39,12 @@ public class DepartmentDAO implements IDepartmentDAO {
         try {
             String query = "FROM Department";
             department = session.createQuery(query).list();
+            
         } catch (Exception e) {
             e.printStackTrace();
             if (transaction != null) {
                 transaction.rollback();
             }
-        }finally{
-            session.close();
         }
         return department;
     }
@@ -64,32 +64,7 @@ public class DepartmentDAO implements IDepartmentDAO {
             if (transaction != null) {
                 transaction.rollback();
             }
-        }finally{
-            session.close();
-        }
-        return department;
-    }
-
-    @Override
-    public List<Department> search(String key) {
-        List<Department> department = new ArrayList<>();
-        session = this.sessionFactory.openSession();
-        transaction = session.beginTransaction();
-        try {
-            String hql = "FROM Department WHERE departmentId = :a OR departmentName = :b "
-                    + "OR managerId = :c OR locationId = :d";
-            Query query = session.createQuery(hql);
-            query.setParameter("a", new Short(key));
-            query.setParameter("b", key);
-            query.setParameter("c", new Short(key));
-            query.setParameter("d", key);
-            department = query.list();
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        }finally{
+        } finally {
             session.close();
         }
         return department;
@@ -118,7 +93,44 @@ public class DepartmentDAO implements IDepartmentDAO {
 
     @Override
     public boolean delete(Short id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        boolean result = false;
+        try {
+            Department department = (Department) session.load(Department.class, id);
+            session.delete(department);
+            transaction.commit();
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return result;
     }
 
+    @Override
+    public List<Department> search(Object key) {
+        List<Department> department = new ArrayList<>();
+        session = this.sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        try {
+            String hql = "FROM Department WHERE lower(departmentName) LIKE :a "
+                    + "OR lower(managerId) LIKE :a OR lower(locationId) LIKE :a";
+            Query query = session.createQuery(hql);
+            query.setParameter("a", "%" + key.toString().toLowerCase() + "%");
+            department = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return department;
+    }
 }

@@ -14,14 +14,9 @@ import models.Department;
  * @author BWP
  */
 public interface IDepartmentDAO {
-
     public List<Department> getAll();
-
     public Department getById(Short id);
-
-    public List<Department> search(String key);
-
+    public List<Department> search(Object key);
     public boolean save(Department department);
-
     public boolean delete(Short id);
 }
