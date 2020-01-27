@@ -5,76 +5,78 @@
  */
 package daos;
 
-import models.Region;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import idaos.IRegionDAO;
+import idaos.ILocationDAO;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import models.Location;
+import models.Region;
 import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 /**
  *
- * @author aqira
+ * @author M. Farij Ariefqy Saputra
  */
-public class RegionDAO implements IRegionDAO {
+public class LocationDAO implements ILocationDAO {
 
     private Session session;
     private Transaction transaction;
     private SessionFactory sessionFactory;
 
-    public RegionDAO(SessionFactory sessionFactory) {
+    public LocationDAO(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
     @Override
-    public List<Region> getAll() {
-        List<Region> region = new ArrayList<>();
+    public List<Location> getAll() {
+        List<Location> locations = new ArrayList<>();
         session = this.sessionFactory.openSession();
         transaction = session.beginTransaction();
         try {
-            String hql = "FROM Region";
-            region = session.createQuery(hql).list();
+            String query = "FROM Location";
+            locations = session.createQuery(query).list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+
+            }
+        }
+        return locations;
+    }
+
+    @Override
+    public Location getById(Short id) {
+        Location locations = null;
+        session = this.sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        try {
+            locations =(Location)session.get(Location.class, id);
         } catch (Exception e) {
             e.printStackTrace();
             if (transaction != null) {
                 transaction.rollback();
             }
         }
-        return region;
+        return locations;
+
     }
 
     @Override
-    public Region getById(BigDecimal id) {
-        Region region = null;
+    public List<Location> search(Object key) {
+        List<Location> location = new ArrayList<>();
         session = this.sessionFactory.openSession();
         transaction = session.beginTransaction();
         try {
-            String hql = "FROM Region WHERE regionId = :a";
+            String hql = "FROM Location WHERE lower (location_id) LIKE :a  "
+                    + "OR lower (street_address) LIKE  :a OR lower (postal_code) "
+                    + "LIKE  :a OR lower (city) LIKE  :a OR lower (state_province) LIKE "
+                    + " :a OR lower (country_id) LIKE  :a";
             Query query = session.createQuery(hql);
-            query.setParameter("a", id);
-            region = (Region) query.uniqueResult();
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        }
-        return region;
-    }
-
-    @Override
-    public List<Region> search(Object key) {
-        List<Region> region = new ArrayList<>();
-        session = this.sessionFactory.openSession();
-        transaction = session.beginTransaction();
-        try {
-            String hql = "FROM Region WHERE lower(regionName) LIKE :a";
-            Query query = session.createQuery(hql);
-            query.setParameter("a", "%" + key.toString().toLowerCase() + "%");
-            region = query.list();
+            query.setParameter("a", key.toString().toLowerCase() + "%");
+            location = query.list();
         } catch (Exception e) {
             e.printStackTrace();
             if (transaction != null) {
@@ -83,47 +85,56 @@ public class RegionDAO implements IRegionDAO {
         } finally {
             session.close();
         }
-        return region;
+        return location;
+
     }
 
     @Override
-    public boolean delete(BigDecimal id) {
+    public boolean save(Location l) {
         boolean result = false;
-        session = sessionFactory.openSession();
-        transaction = session.beginTransaction();
-        try {
-            Region region = (Region) session.load(Region.class, id);
-            session.delete(region); //delete
-            transaction.commit();
-            result = true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            session.close();
-        }
-        return result;
-    }
 
-    @Override
-    public boolean save(Region r) {
-        boolean result = false;
         try {
-            session = sessionFactory.openSession();
+            session = this.sessionFactory.openSession();
             transaction = session.beginTransaction();
-            session.saveOrUpdate(r); //insert & update
+            session.saveOrUpdate(l);
             transaction.commit();
             result = true;
+
         } catch (Exception e) {
             e.printStackTrace();
             if (transaction != null) {
                 transaction.rollback();
+
             }
         } finally {
             session.close();
         }
         return result;
+
+    }
+
+    @Override
+    public boolean delete(Short id) {
+
+        session = this.sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        boolean result = false;
+        try {
+            Location location = (Location) session.load(Location.class, id);
+            session.delete(location);
+            transaction.commit();
+            result = true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+
+            }
+        } finally {
+            session.close();
+        }
+        return result;
+
     }
 }

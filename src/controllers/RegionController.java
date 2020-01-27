@@ -15,19 +15,15 @@ import org.hibernate.SessionFactory;
 
 /**
  *
- * @author Insane
+ * @author aqira
  */
 public class RegionController implements IRegionController {
-    
-    private IRegionDAO rdao;
-    
-    public RegionController(SessionFactory factory){
-        rdao = new RegionDAO(factory);
-    }
 
-    @Override
-    public Region getById(String id) {
-        return rdao.getById(new BigDecimal(id));
+    private IRegionDAO rdao;
+
+    public RegionController(SessionFactory sessionFactory) {
+        rdao = new RegionDAO(sessionFactory) {
+        };
     }
 
     @Override
@@ -36,38 +32,31 @@ public class RegionController implements IRegionController {
     }
 
     @Override
+    public Region getById(String id) {
+        return rdao.getById(new BigDecimal(id));
+    }
+
+    @Override
     public List<Region> search(Object key) {
         return rdao.search(key);
     }
 
     @Override
-    public String insert(String id, String name) {
+    public String save(String id, String name) {
         Region region = new Region(new BigDecimal(id), name);
-        if (rdao.insert(region)) {
-            return "Insert Success";
-        }else{
-            return "Insert Failed";
+        if (rdao.save(region)) {
+            return "Insert success";
+        } else {
+            return "Insert failed";
         }
     }
 
     @Override
-    public String update(String id, String name) {
-        Region region = new Region(new BigDecimal(id), name);
-        if (rdao.insert(region)) {
-            return "Update Success";
-        }else{
-            return "Update Failed";
-        
-        }
-    }
-
-    @Override
-    public String delete(int id) {
-        if (rdao.delete(id)) {
+    public String delete(String id) {
+        if (rdao.delete(new BigDecimal(id))) {
             return "Delete Success";
-        }else{
+        } else {
             return "Delete Failed";
         }
+        }
     }
-    
-}

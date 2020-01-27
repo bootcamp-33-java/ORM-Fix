@@ -10,14 +10,12 @@ import models.Region;
 
 /**
  *
- * @author Insane
+ * @author aqira
  */
 public interface IRegionController {
-    public Region getById(String id);
     public List<Region> getAll();
+    public Region getById (String id);
     public List<Region> search(Object key);
-    public String insert(String id, String name);
-    public String update(String id, String name);
-    public String delete(int id);
-    
+    public String save (String id, String name);
+    public String delete (String id);
 }

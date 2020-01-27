@@ -37,11 +37,11 @@ public class ManualTestEmployee {
         j.setJobId("AD_VP");
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        Date date = simpleDateFormat.parse("12-02-2019");
+        Date date = new Date();
         EmployeeDAO edao = new EmployeeDAO(sessionFactory);
-//                //insert or update
-//                Employee em = new Employee(80, "Muhammad", "Nur Iqbal", "omBoyeni@gmail.com", "08344456", date, BigDecimal.valueOf(20000), BigDecimal.valueOf(0), d, new Employee(200), j);
-//                System.out.println(edao.save(em));
+                //insert or update
+                Employee em = new Employee(207, "Aqira", "Kelana", "aqira.kelana", "081290497444", date, BigDecimal.valueOf(20000), BigDecimal.valueOf(0), d, new Employee(200), j);
+                System.out.println(edao.save(em));
 //             
         //        //delete
         //        System.out.println(edao.delete(90));
@@ -57,10 +57,10 @@ public class ManualTestEmployee {
 //                System.out.println(e.getEmployeeId()+" "+e.getFirstName()+" "+e.getLastName());
 
                 //getAll
-                List<Employee> employees=edao.search("163");
-                for (Employee e : employees) {
-                    System.out.println(e.getEmployeeId()+" "+e.getFirstName()+" "+e.getLastName()+" "+
-                                        e.getPhoneNumber()+" "+e.getSalary()+" "+e.getCommissionPct()+" "+e.getManagerId()+" "+e.getDepartmentId().getDepartmentId());
-                }
+//                List<Employee> employees=edao.search("163");
+//                for (Employee e : employees) {
+//                    System.out.println(e.getEmployeeId()+" "+e.getFirstName()+" "+e.getLastName()+" "+
+//                                        e.getPhoneNumber()+" "+e.getSalary()+" "+e.getCommissionPct()+" "+e.getManagerId()+" "+e.getDepartmentId().getDepartmentId());
+//                }
     }
 }

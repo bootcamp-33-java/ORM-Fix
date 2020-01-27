@@ -24,7 +24,7 @@ public class ManualTestAccount {
         AccountDAO adao=new AccountDAO(sessionFactory);
         
         // register 
-        Account a=new Account(new Employee(100),"Yuyun","apasih");
+        Account a=new Account(new Employee(207),"aqira","apasih");
         System.out.println(adao.register(a));
         
 //        //login
