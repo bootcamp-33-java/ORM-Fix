@@ -211,13 +211,13 @@ public class Employee implements Serializable {
         this.jobId = jobId;
     }
 
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
+//    public Account getAccount() {
+//        return account;
+//    }
+//
+//    public void setAccount(Account account) {
+//        this.account = account;
+//    }
 
     @XmlTransient
     public List<Department> getDepartmentList() {
