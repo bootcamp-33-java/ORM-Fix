@@ -11,14 +11,17 @@ import models.Region;
 
 /**
  *
- * @author Insane
+ * @author aqira
  */
 public interface IRegionDAO {
-    public Region getById(BigDecimal id);
+
     public List<Region> getAll();
+
+    public Region getById(BigDecimal id);
+
     public List<Region> search(Object key);
-    public boolean insert(Region r);
-    public boolean update(Region r);
-    public boolean delete(int id);
     
+    public boolean save (Region r);
+    
+    public boolean delete (BigDecimal id);
 }

@@ -5,23 +5,19 @@
  */
 package daos;
 
-import idaos.IRegionDAO;
-import java.math.BigDecimal;
-import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
-import models.Country;
 import models.Region;
-import org.hibernate.Hibernate;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import tools.HibernateUtil;
+import idaos.IRegionDAO;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import org.hibernate.Query;
 
 /**
  *
- * @author Insane
+ * @author aqira
  */
 public class RegionDAO implements IRegionDAO {
 
@@ -33,40 +29,21 @@ public class RegionDAO implements IRegionDAO {
         this.sessionFactory = sessionFactory;
     }
 
-    public boolean insert(Region r) {
-        boolean result = false;
-        try {
-            session = sessionFactory.openSession();
-            transaction = session.beginTransaction();
-            session.save(r);
-            transaction.commit();
-            result = true;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            session.close();
-        }
-        return result;
-    }
-
+    @Override
     public List<Region> getAll() {
-        List<Region> regions = new ArrayList<>();
+        List<Region> region = new ArrayList<>();
         session = this.sessionFactory.openSession();
         transaction = session.beginTransaction();
         try {
-            String query = "from Region";
-            regions = session.createQuery(query).list();
+            String hql = "FROM Region";
+            region = session.createQuery(hql).list();
         } catch (Exception e) {
             e.printStackTrace();
             if (transaction != null) {
                 transaction.rollback();
             }
         }
-        return regions;
+        return region;
     }
 
     @Override
@@ -75,7 +52,7 @@ public class RegionDAO implements IRegionDAO {
         session = this.sessionFactory.openSession();
         transaction = session.beginTransaction();
         try {
-            String hql = "From Region WHERE regionId = :a";
+            String hql = "FROM Region WHERE regionId = :a";
             Query query = session.createQuery(hql);
             query.setParameter("a", id);
             region = (Region) query.uniqueResult();
@@ -83,25 +60,40 @@ public class RegionDAO implements IRegionDAO {
             e.printStackTrace();
             if (transaction != null) {
                 transaction.rollback();
-
             }
         }
         return region;
     }
 
     @Override
-    public boolean update(Region r) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Region> search(Object key) {
+        List<Region> region = new ArrayList<>();
+        session = this.sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        try {
+            String hql = "FROM Region WHERE lower(regionName) LIKE :a";
+            Query query = session.createQuery(hql);
+            query.setParameter("a", "%" + key.toString().toLowerCase() + "%");
+            region = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return region;
     }
 
     @Override
-    public boolean delete(int id) {
+    public boolean delete(BigDecimal id) {
+        boolean result = false;
         session = sessionFactory.openSession();
         transaction = session.beginTransaction();
-        boolean result = false;
         try {
             Region region = (Region) session.load(Region.class, id);
-            session.delete(region);
+            session.delete(region); //delete
             transaction.commit();
             result = true;
         } catch (Exception e) {
@@ -116,10 +108,22 @@ public class RegionDAO implements IRegionDAO {
     }
 
     @Override
-    public List<Region> search(Object key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean save(Region r) {
+        boolean result = false;
+        try {
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
+            session.saveOrUpdate(r); //insert & update
+            transaction.commit();
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return result;
     }
-
-    
-
 }

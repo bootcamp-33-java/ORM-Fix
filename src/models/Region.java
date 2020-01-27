@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Insane
+ * @author aqira
  */
 @Entity
 @Table(name = "REGIONS")
@@ -41,7 +41,7 @@ public class Region implements Serializable {
     private BigDecimal regionId;
     @Column(name = "REGION_NAME")
     private String regionName;
-    @OneToMany(mappedBy = "regionId", fetch = FetchType.LAZY) //relasinya || yang pertama adalah dirinya (ONE)
+    @OneToMany(mappedBy = "regionId", fetch = FetchType.LAZY)
     private List<Country> countryList;
 
     public Region() {
@@ -51,8 +51,9 @@ public class Region implements Serializable {
         this.regionId = regionId;
     }
 
-    public Region(BigDecimal bigDecimal, String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Region(BigDecimal regionId, String regionName) {
+        this.regionId = regionId;
+        this.regionName = regionName;
     }
 
     public BigDecimal getRegionId() {
@@ -103,10 +104,6 @@ public class Region implements Serializable {
     @Override
     public String toString() {
         return "models.Region[ regionId=" + regionId + " ]";
-    }
-
-    public boolean getId() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
