@@ -69,6 +69,10 @@ public class Location implements Serializable {
         this.city = city;
     }
 
+    public Location(short parseShort, String streetAddress, String postalCode, String city, String stateProvince, Country country) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public Short getLocationId() {
         return locationId;
     }
