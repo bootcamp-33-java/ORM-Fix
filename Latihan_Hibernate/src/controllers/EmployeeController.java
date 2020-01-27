@@ -25,6 +25,7 @@ import org.hibernate.SessionFactory;
 public class EmployeeController implements IEmployeeController {
 
     private IEmployeeDAO iedao;
+    
 
     public EmployeeController(SessionFactory factory) {
         iedao = new EmployeeDAO(factory);
