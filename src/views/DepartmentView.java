@@ -20,13 +20,6 @@ import javax.swing.table.DefaultTableModel;
 import models.Department;
 import models.Employee;
 import models.Location;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperViewer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import tools.HibernateUtil;
@@ -358,21 +351,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        String reportSource = null;
-        String reportDest = null;
-        try {
-            JRBeanCollectionDataSource beanCollection = new JRBeanCollectionDataSource(idc.getAll());
-            reportSource = System.getProperty("user.dir") + "/src/reports/reportDepartment.jrxml";
-            reportDest = System.getProperty("user.dir") + "/src/reports/reportDepartment.report";
-            Map<String, Object> map = new HashMap<String, Object>();
-
-            JasperReport jasperReport = JasperCompileManager.compileReport(reportSource);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, beanCollection);
-            JasperExportManager.exportReportToPdfFile(jasperPrint, reportDest);
-            JasperViewer.viewReport(jasperPrint, false);
-        } catch (Exception e) {
-        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cbSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSearchActionPerformed
