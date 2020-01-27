@@ -38,15 +38,14 @@ public class Account implements Serializable {
     @JoinColumn(name = "ACCOUNT_ID", referencedColumnName = "EMPLOYEE_ID", insertable = false, updatable = false)
     @OneToOne(optional = false, fetch = FetchType.LAZY)
     private Employee accountId;
-    
     @Basic(optional = false)
     @Column(name = "USERNAME")
     private String username;
-    
     @Basic(optional = false)
     @Column(name = "PASSWORD")
     private String password;
-    
+  
+
     public Account() {
     }
 

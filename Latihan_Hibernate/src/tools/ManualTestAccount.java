@@ -23,12 +23,12 @@ public class ManualTestAccount {
 
         AccountDAO adao=new AccountDAO(sessionFactory);
         
-//        // register 
-//        Account a=new Account(new Employee(100),"Yuyun","apasih");
-//        System.out.println(adao.register(a));
-//        
-        //login
-        System.out.println(adao.login("Yuyun", "apasih"));
+        // register 
+        Account a=new Account(new Employee(100),"Yuyun","apasih");
+        System.out.println(adao.register(a));
+        
+//        //login
+//        System.out.println(adao.login("Yuyun", "apasih"));
 
            }
 }

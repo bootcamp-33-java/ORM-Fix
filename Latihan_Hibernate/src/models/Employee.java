@@ -8,6 +8,7 @@ package models;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,11 +19,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -48,42 +51,40 @@ public class Employee implements Serializable {
     @Basic(optional = false)
     @Column(name = "EMPLOYEE_ID")
     private Integer employeeId;
-
     @Column(name = "FIRST_NAME")
     private String firstName;
-
-    @Column(name = "LAST_NAME", nullable = false)
+    @Basic(optional = false)
+    @Column(name = "LAST_NAME")
     private String lastName;
-
-    @Column(name = "EMAIL", nullable = false)
+    @Basic(optional = false)
+    @Column(name = "EMAIL")
     private String email;
-
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
-
-    @Column(name = "HIRE_DATE", nullable = false)
+    @Basic(optional = false)
+    @Column(name = "HIRE_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date hireDate;
-
-    @Column(name = "SALARY", precision = 8, scale = 2)
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "SALARY")
     private BigDecimal salary;
-
-    @Column(name = "COMMISSION_PCT", precision = 2, scale = 2)
+    @Column(name = "COMMISSION_PCT")
     private BigDecimal commissionPct;
-
     @JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "DEPARTMENT_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Department departmentId;
-
-    @Column(name = "MANAGER_ID")
-    private Integer managerId;
-
+    @OneToMany(mappedBy = "managerId", fetch = FetchType.LAZY)
+    private List<Employee> employeeList;
+    @JoinColumn(name = "MANAGER_ID", referencedColumnName = "EMPLOYEE_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Employee managerId;
     @JoinColumn(name = "JOB_ID", referencedColumnName = "JOB_ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Job jobId;
-    
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "accountId", fetch = FetchType.LAZY)
     private Account account;
+    @OneToMany(mappedBy = "managerId", fetch = FetchType.LAZY)
+    private List<Department> departmentList;
 
     public Employee() {
     }
@@ -99,7 +100,7 @@ public class Employee implements Serializable {
         this.hireDate = hireDate;
     }
 
-    public Employee(Integer employeeId, String firstName, String lastName, String email, String phoneNumber, Date hireDate, BigDecimal salary, BigDecimal commissionPct, Department departmentId, Integer managerId, Job jobId) {
+    public Employee(Integer employeeId, String firstName, String lastName, String email, String phoneNumber, Date hireDate, BigDecimal salary, BigDecimal commissionPct, Department departmentId, Employee managerId, Job jobId) {
         this.employeeId = employeeId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -185,11 +186,20 @@ public class Employee implements Serializable {
         this.departmentId = departmentId;
     }
 
-    public Integer getManagerId() {
+    @XmlTransient
+    public List<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
+    }
+
+    public Employee getManagerId() {
         return managerId;
     }
 
-    public void setManagerId(Integer managerId) {
+    public void setManagerId(Employee managerId) {
         this.managerId = managerId;
     }
 
@@ -199,6 +209,23 @@ public class Employee implements Serializable {
 
     public void setJobId(Job jobId) {
         this.jobId = jobId;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    @XmlTransient
+    public List<Department> getDepartmentList() {
+        return departmentList;
+    }
+
+    public void setDepartmentList(List<Department> departmentList) {
+        this.departmentList = departmentList;
     }
 
     @Override
@@ -225,17 +252,5 @@ public class Employee implements Serializable {
     public String toString() {
         return "models.Employee[ employeeId=" + employeeId + " ]";
     }
-
     
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-    
-
 }

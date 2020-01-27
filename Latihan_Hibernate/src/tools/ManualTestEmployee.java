@@ -39,10 +39,10 @@ public class ManualTestEmployee {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date date = simpleDateFormat.parse("12-02-2019");
         EmployeeDAO edao = new EmployeeDAO(sessionFactory);
-        //        //insert or update
-        //        Employee em = new Employee(90, "Muhammad", "Nur Iqbal", "omBoyen@gmail.com", "08344456", date, BigDecimal.valueOf(20000), BigDecimal.valueOf(0), d, 200, j);
-        //        System.out.println(edao.save(em));
-        //     
+//                //insert or update
+//                Employee em = new Employee(80, "Muhammad", "Nur Iqbal", "omBoyeni@gmail.com", "08344456", date, BigDecimal.valueOf(20000), BigDecimal.valueOf(0), d, new Employee(200), j);
+//                System.out.println(edao.save(em));
+//             
         //        //delete
         //        System.out.println(edao.delete(90));
         //

@@ -59,7 +59,7 @@ public class EmployeeController implements IEmployeeController {
 
         Employee e = new Employee(Integer.parseInt(id), firstName, lastName, email, phoneNumber, date, 
                 new BigDecimal(salary), new BigDecimal(commissionPct), new Department(Integer.parseInt(departmentId)),
-                Integer.parseInt(managerId), new Job(jobId));
+                new Employee(Integer.parseInt(managerId)), new Job(jobId));
         
         if (iedao.save(e)) {
             return "Data Berhasil Disimpan";
