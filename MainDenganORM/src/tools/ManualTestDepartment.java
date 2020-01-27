@@ -30,19 +30,19 @@ public class ManualTestDepartment {
 //        LocationDAO ldao = new LocationDAO(factory);
 
         //GET ALL
-//        List<Department> departments = ddao.getAll();
-//        for (Department department : departments) {
-//            System.out.println(department.getDepartmentId() + "\n" + department.getDepartmentName());
-//            System.out.println(department.getManagerId() == null? "0" : department.getManagerId().getEmployeeId());
-//            System.out.println(department.getLocationId().getLocationId());
-//            System.out.println("-----------------------------------");
-//        }
+        List<Department> departments = ddao.getAll();
+        for (Department department : departments) {
+            System.out.println(department.getDepartmentId() + "\n" + department.getDepartmentName());
+            System.out.println(department.getManagerId() == null? "0" : department.getManagerId().getEmployeeId());
+            System.out.println(department.getLocationId().getLocationId());
+            System.out.println("-----------------------------------");
+        }
 //        //GET ID
-        Department department = ddao.getById(new Short("120"));
-        System.out.println(department.getDepartmentId() + "\n" + department.getDepartmentName());
-        System.out.println(department.getManagerId() == null ? "0" : department.getManagerId().getEmployeeId());
-        System.out.println(department.getLocationId().getLocationId());
-        System.out.println("-----------------------------------");
+//        Department department = ddao.getById(new Short("120"));
+//        System.out.println(department.getDepartmentId() + "\n" + department.getDepartmentName());
+//        System.out.println(department.getManagerId() == null ? "0" : department.getManagerId().getEmployeeId());
+//        System.out.println(department.getLocationId().getLocationId());
+//        System.out.println("-----------------------------------");
 
 //        INSERT OR UPDATE
 //        Employee employee = new Employee();

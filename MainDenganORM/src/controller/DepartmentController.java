@@ -6,7 +6,7 @@
 package controller;
 
 import daos.DepartmentDAO;
-import icontroller.IDepartmentController;
+import icontrollers.IDepartmentController;
 import idaos.IDepartmentDAO;
 import java.util.List;
 import models.Department;

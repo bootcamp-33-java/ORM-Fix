@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package icontroller;
+package icontrollers;
 
 import java.util.List;
 import models.Department;

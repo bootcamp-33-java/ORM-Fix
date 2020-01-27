@@ -6,7 +6,7 @@
 package views;
 
 import controller.DepartmentController;
-import icontroller.IDepartmentController;
+import icontrollers.IDepartmentController;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -67,8 +67,8 @@ public class DepartmentView extends javax.swing.JInternalFrame {
             row[0] = i + 1;
             row[1] = departments.get(i).getDepartmentId();
             row[2] = departments.get(i).getDepartmentName();
-            row[3] = departments.get(i).getManagerId();
-            row[4] = departments.get(i).getLocationId();
+            row[3] = departments.get(i).getManagerId() == null ? "0" : departments.get(i).getManagerId().getEmployeeId();
+            row[4] = departments.get(i).getLocationId().getLocationId();
             model.addRow(row);
         }
     }

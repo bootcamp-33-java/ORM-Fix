@@ -6,7 +6,7 @@
 package JUnitTest;
 
 import controller.DepartmentController;
-import icontroller.IDepartmentController;
+import icontrollers.IDepartmentController;
 import java.util.List;
 import models.Department;
 import models.Employee;

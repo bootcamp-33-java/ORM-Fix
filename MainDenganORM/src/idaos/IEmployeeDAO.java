@@ -14,4 +14,12 @@ import models.Employee;
  */
 public interface IEmployeeDAO {
     public List<Employee> getAll();
+
+    public Employee getById(int id);
+
+    public List<Employee> search(String key);
+    
+    public boolean save(Employee e);
+    
+    public boolean delete(int id);
 }
