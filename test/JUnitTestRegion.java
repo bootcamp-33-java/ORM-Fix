@@ -41,16 +41,16 @@ public class JUnitTestRegion {
         Assert.assertNotNull(act2);
     }
 
-    public void testInsert() {
-        irc.insert("111", "NamaSaya");
+    public void testSave() {
+        irc.save("111", "NamaSaya");
         Region m = irc.getById("111");
         Assert.assertEquals("111", m.getRegionId());
         Assert.assertEquals("NamaSaya", m.getRegionName());
 
     }
 
-    public void testUpdate() {
-        irc.update("111", "NamaSayaIni");
+    public void TestSaveUpdate() {
+        irc.save("111", "NamaSayaIni");
         Region m = irc.getById("111");
         Assert.assertEquals("111", m.getRegionId());
         Assert.assertEquals("NamaSayaIni",m.getRegionName());

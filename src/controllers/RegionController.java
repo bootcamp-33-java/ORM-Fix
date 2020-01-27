@@ -42,22 +42,12 @@ public class RegionController implements IRegionController {
     }
 
     @Override
-    public String insert(String id, String name) {
+    public String save(String id, String name) {
         Region region = new Region(new BigDecimal(id), name);
         if (rdao.save(region)) {
             return "Insert success";
         } else {
             return "Insert failed";
-        }
-    }
-
-    @Override
-    public String update(String id, String name) {
-        Region region = new Region(new BigDecimal(id), name);
-        if (rdao.save(region)) {
-            return "Update Success";
-        } else {
-            return "Update Failed";
         }
     }
 
