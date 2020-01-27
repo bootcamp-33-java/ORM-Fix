@@ -31,19 +31,18 @@ public class ManualTestDepartment {
 
         //GET ALL
 //        List<Department> departments = ddao.getAll();
-//        String hasil;
 //        for (Department department : departments) {
 //            System.out.println(department.getDepartmentId() + "\n" + department.getDepartmentName());
-////            hasil = department.getManagerId().getEmployeeId().toString().isEmpty()? "null" :"y";
-////            System.out.println(hasil);
-//            System.out.println(department.getEmployeeList());
-//            System.out.println(department.getLocationId());
+//            System.out.println(department.getManagerId() == null? "0" : department.getManagerId().getEmployeeId());
+//            System.out.println(department.getLocationId().getLocationId());
 //            System.out.println("-----------------------------------");
 //        }
-        
 //        //GET ID
-//        Department departments = ddao.getById(new Short("20"));
-//        System.out.println(departments.getDepartmentId() + " = " + departments.getDepartmentName());
+        Department department = ddao.getById(new Short("120"));
+        System.out.println(department.getDepartmentId() + "\n" + department.getDepartmentName());
+        System.out.println(department.getManagerId() == null ? "0" : department.getManagerId().getEmployeeId());
+        System.out.println(department.getLocationId().getLocationId());
+        System.out.println("-----------------------------------");
 
 //        INSERT OR UPDATE
 //        Employee employee = new Employee();
@@ -53,21 +52,16 @@ public class ManualTestDepartment {
 //        location.setLocationId(new Short("1700"));
 //        Department department = new Department(new Short("290"),"Agung lulusan terbaik", employee.getManagerId(), location);
 //        System.out.println(ddao.save(department));
-
 //        GET Search 
-//        for (Department department : ddao.search("acc")) {
-//            System.out.println(department.getDepartmentId() + "\n" + department.getDepartmentName());
-////            hasil = ;
-////            System.out.println(hasil);
-//            System.out.println(department.getManagerId());
-//            System.out.println(department.getLocationId());
+//        for (Department department : ddao.search("bene")) {
+//        System.out.println(department.getDepartmentId() + "\n" + department.getDepartmentName());
+//            System.out.println(department.getManagerId() == null? "0" : department.getManagerId().getEmployeeId());
+//            System.out.println(department.getLocationId().getLocationId());
 //            System.out.println("-----------------------------------");
 //        }
 //        
 //        //DELETE
 //        System.out.println(ddao.delete(new Short("280")));
-
-
         session.close();
     }
 }

@@ -96,6 +96,10 @@ public class Employee implements Serializable {
         this.hireDate = hireDate;
     }
 
+    public Employee(Employee managerId) {
+        this.managerId = managerId;
+    }
+
     public Integer getEmployeeId() {
         return employeeId;
     }
