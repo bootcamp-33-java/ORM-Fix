@@ -104,13 +104,13 @@ public class RegisterView extends javax.swing.JFrame {
                 .addGap(0, 138, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(162, 162, 162))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btnBack)
                         .addGap(18, 18, 18)
                         .addComponent(btnDaftar)
-                        .addGap(126, 126, 126))))
+                        .addGap(126, 126, 126))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(162, 162, 162))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,10 +152,10 @@ public class RegisterView extends javax.swing.JFrame {
         
 //      -----------------------------Password-----------------------------------
 
-        String password1 = txtPassword.getPassword().toString();
-        String password2 = txtPasswordRetype.getPassword().toString();
+        String password1 = txtPassword.getText();
+        String password2 = txtPasswordRetype.getText();
         if (password1.equals(password2) && !password1.equals("")) {
-            JOptionPane.showMessageDialog(null, iac.save(txtEmployeeId.getText(), txtUsername.getText(), txtPassword.getPassword().toString()));
+            JOptionPane.showMessageDialog(null, iac.save(txtEmployeeId.getText(), txtUsername.getText(),txtPassword.getText()));
             this.setVisible(false);
             new LoginView().setVisible(true);
         } else {
