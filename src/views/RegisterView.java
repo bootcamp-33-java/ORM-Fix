@@ -170,12 +170,25 @@ public class RegisterView extends javax.swing.JFrame {
 
         notifPass1.setVisible(false);
         notifPass2.setVisible(false);
+
         if (password1.equals(password2) && !password1.equals("")) { //Kalo bener
-            JOptionPane.showMessageDialog(null, iac.save(txtEmployeeId.getText(), txtUsername.getText(), txtPassword.getText()));
-            this.setVisible(false);
-            new LoginView().setVisible(true);
+            String password = txtPassword.getText();
+            if (password.length() > 8) {
+                if (checkPass(password)) {
+                    iac.save(txtEmployeeId.getText(), txtUsername.getText(), txtPassword.getText());
+                    this.setVisible(false);
+                    new LoginView().setVisible(true);
+                } else {
+                    notifPass1.setText("Password tidak sesuai dengan ketentuan");
+                    notifPass1.setVisible(true);
+                }
+            } else {
+                notifPass1.setText("Password terlalu panjang");
+                notifPass1.setVisible(true);
+            }
         } else { //Kalo salah
             if (password1.equals("")) { //Kalo password belum di masukkin
+                notifPass1.setText("Password tidak boleh kosong");
                 notifPass1.setVisible(true);
             } else if (!password1.equals(password2)) { // Kalo password tidak sama dengan yang sebelumnya
                 notifPass2.setVisible(true);
@@ -224,6 +237,29 @@ public class RegisterView extends javax.swing.JFrame {
                 new RegisterView().setVisible(true);
             }
         });
+    }
+
+    public static boolean checkPass(String password1) {
+
+        boolean hasNum = false;
+        boolean hasLower = false;
+        boolean hasUpper = false;
+        char c;
+        for (int i = 0; i < password1.length(); i++) {
+
+            c = password1.charAt(i);
+            if (Character.isDigit(c)) {
+                hasNum = true;
+            } else if (Character.isLowerCase(c)) {
+                hasLower = true;
+            } else if (Character.isUpperCase(c)) {
+                hasUpper = true;
+            }
+            if (hasNum && hasLower && hasUpper) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
