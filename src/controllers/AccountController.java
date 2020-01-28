@@ -11,6 +11,7 @@ import idaos.IAccountDAO;
 import models.Account;
 import models.Employee;
 import org.hibernate.SessionFactory;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -26,7 +27,8 @@ public class AccountController implements IAccountController {
 
     @Override
     public String save(String accountId, String username, String password) {
-        Account a = new Account(new Employee(Integer.parseInt(accountId)), username, password);
+        String pass= BCrypt.hashpw(password, BCrypt.gensalt());
+        Account a = new Account(new Employee(Integer.parseInt(accountId)), username, pass);
         if (iadao.register(a)) {
             return "Data berhasil disimpan";
         } else {
@@ -37,7 +39,8 @@ public class AccountController implements IAccountController {
 
     @Override
     public boolean login(String username, String password) {
-        if (iadao.login(username, password)) {
+        Account account=iadao.getByUsername(username);
+        if (account != null && BCrypt.checkpw(password, account.getPassword())) {
             return true;
         }else{
             return false;
