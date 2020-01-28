@@ -104,6 +104,8 @@ public class LocationView extends javax.swing.JInternalFrame {
         tblLocation = new javax.swing.JTable();
         btnById = new javax.swing.JButton();
 
+        setClosable(true);
+
         jLabel1.setText("Location ID");
 
         jLabel2.setText("Street Address");
