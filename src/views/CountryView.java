@@ -117,8 +117,10 @@ public class CountryView extends javax.swing.JInternalFrame {
         btnReport = new javax.swing.JButton();
         btnRefresh = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setClosable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jInternalFrame1.setClosable(true);
         jInternalFrame1.setVisible(true);
 
         jLabel1.setText("ID");
