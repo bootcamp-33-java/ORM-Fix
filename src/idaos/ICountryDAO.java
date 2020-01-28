@@ -18,7 +18,7 @@ public interface ICountryDAO {
 
     public Country getById(String id);
 
-    public List<Country> search(Object keyword);
+    public List<Country> search(String keyword);
 
 //    public boolean insert(Country country);
 //

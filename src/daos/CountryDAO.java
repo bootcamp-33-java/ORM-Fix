@@ -87,7 +87,7 @@ public class CountryDAO implements ICountryDAO{
     }
 
     @Override
-    public List<Country> search(Object keyword) {
+    public List<Country> search(String keyword) {
         List<Country> countrys = new ArrayList<>();
         session = this.sessionFactory.openSession();
         transaction = session.beginTransaction();

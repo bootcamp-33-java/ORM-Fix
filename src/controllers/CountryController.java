@@ -33,7 +33,7 @@ public class CountryController implements ICountryController {
     }
 
     @Override
-    public List<Country> search(Object keyword) {
+    public List<Country> search(String keyword) {
         return cdao.search(keyword);
     }
 

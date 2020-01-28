@@ -6,12 +6,15 @@
 package views;
 
 import controllers.CountryController;
+import controllers.RegionController;
 import icontrollers.ICountryController;
+import icontrollers.IRegionController;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Country;
+import models.Region;
 import org.hibernate.SessionFactory;
 import tools.HibernateUtil;
 
@@ -26,6 +29,7 @@ public class CountryView extends javax.swing.JFrame {
      */
     SessionFactory factory = HibernateUtil.getSessionFactory();
     ICountryController icc = new CountryController(factory);
+    IRegionController irc = new RegionController(factory);
     private DefaultTableModel model;
 
     public CountryView() {
@@ -33,41 +37,42 @@ public class CountryView extends javax.swing.JFrame {
         model = (DefaultTableModel) tbCountry.getModel();
         model.setRowCount(0);
         ShowTableCountry();
+        cbRegionId.addItem("Select");
+        for (Region r : irc.getAll()) {
+            cbRegionId.addItem(String.valueOf(r.getRegionId()));
+        }
     }
 
     public void resetTextCountry() {
         txtCountryId.setText("");
         txtCountryName.setText("");
-//        cbRegionId.setText("");
+        cbRegionId.setSelectedItem("");
         txtSearchCountry.setText("");
         txtCountryId.setEditable(true);
         btnSave.setEnabled(true);
     }
 
     public void ShowTableCountry() {
-        model.setRowCount(0);
-        List<Country> cs = new ArrayList<>();
-        Object[] row = new Object[5];
-        cs = icc.getAll();
-        for (int i = 0; i < cs.size(); i++) {
-            row[0] = i++;
-            row[1] = cs.get(i).getCountryId();
-            row[2] = cs.get(i).getCountryName();
-            row[3] = cs.get(i).getRegionId().getRegionId();
+        List<Country> countrys = new ArrayList<>();
+        Object[] row = new Object[4];
+        countrys = icc.getAll();
+        for (int i = 0; i < countrys.size(); i++) {
+            row[0] = i + 1;
+            row[1] = countrys.get(i).getCountryId();
+            row[2] = countrys.get(i).getCountryName();
+            row[3] = countrys.get(i).getRegionId().getRegionId();
             model.addRow(row);
         }
     }
-
     public void ShowTableCountry(String s) {
-        model.setRowCount(0);
-        List<Country> cs = new ArrayList<>();
+        List<Country> countrys = new ArrayList<>();
         Object[] row = new Object[5];
-        cs = icc.getAll();
-        for (int i = 0; i < cs.size(); i++) {
-            row[0] = i++;
-            row[1] = cs.get(i).getCountryId();
-            row[2] = cs.get(i).getCountryName();
-            row[3] = cs.get(i).getRegionId().getRegionId();
+        countrys = icc.getAll();
+        for (int i = 0; i < countrys.size(); i++) {
+            row[0] = i + 1;
+            row[1] = countrys.get(i).getCountryId();
+            row[2] = countrys.get(i).getCountryName();
+            row[3] = countrys.get(i).getRegionId().getRegionId();
             model.addRow(row);
         }
     }
@@ -269,7 +274,7 @@ public class CountryView extends javax.swing.JFrame {
         btnSave.setEnabled(true);
         txtCountryId.setText(model.getValueAt(SelectRowIndex, 1).toString());
         txtCountryName.setText(model.getValueAt(SelectRowIndex, 2).toString());
-//        cbRegionId.setText(model.getValueAt(SelectRowIndex, 3).toString());
+        cbRegionId.setSelectedItem(model.getValueAt(SelectRowIndex, 3).toString());
         txtCountryId.setEditable(false);
     }//GEN-LAST:event_tbCountryMouseClicked
 
