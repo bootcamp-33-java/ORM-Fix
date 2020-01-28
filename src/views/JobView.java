@@ -89,6 +89,8 @@ public class JobView extends javax.swing.JInternalFrame {
         tblJob = new javax.swing.JTable();
         btnById = new javax.swing.JButton();
 
+        setClosable(true);
+
         jLabel1.setText("ID");
 
         jLabel2.setText("Job Title");

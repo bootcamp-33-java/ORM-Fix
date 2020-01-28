@@ -95,6 +95,11 @@ public class MainView extends javax.swing.JFrame {
         jMenu1.add(menuEmployee);
 
         menuJob.setText("Job");
+        menuJob.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuJobActionPerformed(evt);
+            }
+        });
         jMenu1.add(menuJob);
 
         jMenuBar1.add(jMenu1);
@@ -151,6 +156,13 @@ public class MainView extends javax.swing.JFrame {
     private void menuEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEmployeeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menuEmployeeActionPerformed
+
+    private void menuJobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuJobActionPerformed
+        // TODO add your handling code here:
+        JobView j = new JobView();
+        this.mainPanel.add(j);
+        j.show();
+    }//GEN-LAST:event_menuJobActionPerformed
 
     /**
      * @param args the command line arguments
