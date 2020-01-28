@@ -21,14 +21,18 @@ public class ManualTestAccount {
         System.out.println(sessionFactory);
         System.out.println(HibernateUtil.getSessionFactory());
 
-        AccountDAO adao=new AccountDAO(sessionFactory);
-        
+        AccountDAO adao = new AccountDAO(sessionFactory);
+
         // register 
-        Account a=new Account(new Employee(207),"aqira","apasih");
-        System.out.println(adao.register(a));
-        
+//        Account a=new Account(new Employee(207),"aqira","apasih");
+//        System.out.println(adao.register(a));
+//        
 //        //login
 //        System.out.println(adao.login("Yuyun", "apasih"));
 
-           }
+Account a=adao.getByUsername("aqira");
+        System.out.println(a.getUsername());
+        System.out.println(a.getPassword());
+
+    }
 }
