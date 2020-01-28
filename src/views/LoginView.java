@@ -43,7 +43,6 @@ public class LoginView extends javax.swing.JFrame {
         btnRegister = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
-        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,12 +73,6 @@ public class LoginView extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel3.setText("Login");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -97,13 +90,11 @@ public class LoginView extends javax.swing.JFrame {
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(btnLogin)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(btnRegister))
-                                        .addComponent(txtPassword))))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnLogin)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnRegister))
+                                    .addComponent(txtPassword)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(165, 165, 165)
                         .addComponent(jLabel3)))
@@ -122,9 +113,7 @@ public class LoginView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(4, 4, 4)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogin)
                     .addComponent(btnRegister))
@@ -137,7 +126,7 @@ public class LoginView extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
 //        if ((iac.login(txtUsername.getText(), txtPassword.getPassword().toString()) == true)) {
-        if (iac.login(txtUsername.getText(), jTextField1.getText())) {
+        if (iac.login(txtUsername.getText(), txtPassword.getPassword().toString())) {
             this.setVisible(false);
             new MainView().setVisible(true);
         } else {
@@ -159,10 +148,6 @@ public class LoginView extends javax.swing.JFrame {
         new RegisterView().setVisible(true);
 
     }//GEN-LAST:event_btnRegisterActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,7 +190,6 @@ public class LoginView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables

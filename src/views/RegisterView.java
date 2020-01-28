@@ -149,16 +149,15 @@ public class RegisterView extends javax.swing.JFrame {
 
     private void btnDaftarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDaftarActionPerformed
         // TODO add your handling code here:
+        
 //      -----------------------------Password-----------------------------------
 
         String password1 = txtPassword.getPassword().toString();
         String password2 = txtPasswordRetype.getPassword().toString();
         if (password1.equals(password2) && !password1.equals("")) {
-
             JOptionPane.showMessageDialog(null, iac.save(txtEmployeeId.getText(), txtUsername.getText(), txtPassword.getPassword().toString()));
             this.setVisible(false);
             new LoginView().setVisible(true);
-
         } else {
             JOptionPane.showMessageDialog(null, "Silahkan Coba Lagi");
         }
