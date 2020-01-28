@@ -12,7 +12,8 @@ import models.Account;
  * @author yuyun
  */
 public interface IAccountDAO {
+    public Account getByUsername(String username);
+    
     public boolean register(Account a);
     
-    public boolean login(String username, String password);
 }

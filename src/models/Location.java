@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Insane
+ * @author FIKRI-PC
  */
 @Entity
 @Table(name = "LOCATIONS")
@@ -60,6 +60,16 @@ public class Location implements Serializable {
     public Location() {
     }
 
+    public Location(Short locationId, String streetAddress, String postalCode, String city, String stateProvince, Country countryId) {
+        this.locationId = locationId;
+        this.streetAddress = streetAddress;
+        this.postalCode = postalCode;
+        this.city = city;
+        this.stateProvince = stateProvince;
+        this.countryId = countryId;
+    }
+    
+
     public Location(Short locationId) {
         this.locationId = locationId;
     }
@@ -69,9 +79,7 @@ public class Location implements Serializable {
         this.city = city;
     }
 
-    public Location(short parseShort, String streetAddress, String postalCode, String city, String stateProvince, Country country) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
 
     public Short getLocationId() {
         return locationId;
