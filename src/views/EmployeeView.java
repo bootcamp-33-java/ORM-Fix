@@ -26,7 +26,7 @@ import tools.HibernateUtil;
  *
  * @author yuyun
  */
-public class EmployeeView extends javax.swing.JFrame {
+public class EmployeeView extends javax.swing.JInternalFrame {
 
     SessionFactory factory = HibernateUtil.getSessionFactory();
     Session session = factory.openSession();
@@ -155,6 +155,7 @@ public class EmployeeView extends javax.swing.JFrame {
         btnSearch = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         txtId.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -355,7 +356,7 @@ public class EmployeeView extends javax.swing.JFrame {
                             .addComponent(txtHireDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 113, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
                             .addComponent(cbManagerId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -375,7 +376,7 @@ public class EmployeeView extends javax.swing.JFrame {
                     .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(162, 162, 162))
+                .addGap(144, 144, 144))
         );
 
         pack();

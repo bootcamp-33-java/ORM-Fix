@@ -33,9 +33,9 @@ public class RegisterView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtAccount = new javax.swing.JTextField();
+        txtEmployeeId = new javax.swing.JTextField();
         btnDaftar = new javax.swing.JButton();
-        txtEmployeeId1 = new javax.swing.JTextField();
+        txtUsername = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
         txtPasswordRetype = new javax.swing.JPasswordField();
@@ -45,15 +45,15 @@ public class RegisterView extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Register");
 
-        jLabel2.setText("Account :");
+        jLabel2.setText("Employee ID :");
 
         jLabel3.setText("Password :");
 
-        jLabel4.setText("Employee ID :");
+        jLabel4.setText("Username :");
 
-        txtAccount.addActionListener(new java.awt.event.ActionListener() {
+        txtEmployeeId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAccountActionPerformed(evt);
+                txtEmployeeIdActionPerformed(evt);
             }
         });
 
@@ -71,22 +71,16 @@ public class RegisterView extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addGap(24, 24, 24))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4))
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtAccount, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
-                    .addComponent(txtEmployeeId1)
+                    .addComponent(txtEmployeeId, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                    .addComponent(txtUsername)
                     .addComponent(txtPassword)
                     .addComponent(txtPasswordRetype))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -105,7 +99,7 @@ public class RegisterView extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEmployeeId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -116,7 +110,7 @@ public class RegisterView extends javax.swing.JFrame {
                     .addComponent(txtPasswordRetype, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEmployeeId1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(28, 28, 28)
                 .addComponent(btnDaftar)
@@ -126,21 +120,21 @@ public class RegisterView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAccountActionPerformed
+    private void txtEmployeeIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmployeeIdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtAccountActionPerformed
+    }//GEN-LAST:event_txtEmployeeIdActionPerformed
 
     private void btnDaftarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDaftarActionPerformed
         // TODO add your handling code here:
+//      -----------------------------Password-----------------------------------
 
         String password1 = txtPassword.getText();
         String password2 = txtPasswordRetype.getText();
         if (password1.equals(password2)) {
             JOptionPane.showMessageDialog(null, "Berhasil");
-
-        this.setVisible(false);
-        new LoginView().setVisible(true);
-        } else{
+            this.setVisible(false);
+            new LoginView().setVisible(true);
+        } else {
             JOptionPane.showMessageDialog(null, "Silahkan Coba Lagi");
         }
 
@@ -189,9 +183,9 @@ public class RegisterView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField txtAccount;
-    private javax.swing.JTextField txtEmployeeId1;
+    private javax.swing.JTextField txtEmployeeId;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JPasswordField txtPasswordRetype;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

@@ -155,6 +155,9 @@ public class MainView extends javax.swing.JFrame {
 
     private void menuEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEmployeeActionPerformed
         // TODO add your handling code here:
+        EmployeeView e = new EmployeeView();
+        this.mainPanel.add(e);
+        e.show();
     }//GEN-LAST:event_menuEmployeeActionPerformed
 
     private void menuJobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuJobActionPerformed
