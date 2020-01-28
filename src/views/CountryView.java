@@ -22,7 +22,7 @@ import tools.HibernateUtil;
  *
  * @author ASUS
  */
-public class CountryView extends javax.swing.JFrame {
+public class CountryView extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form CountryView

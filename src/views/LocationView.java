@@ -5,9 +5,9 @@
  */
 package views;
 
-import controller.LocationController;
+import controllers.LocationController;
 import controllers.CountryController;
-import icontroller.ILocationController;
+import icontrollers.ILocationController;
 import icontrollers.ICountryController;
 import java.util.ArrayList;
 import java.util.List;
