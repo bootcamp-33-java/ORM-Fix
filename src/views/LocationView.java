@@ -9,6 +9,7 @@ import controllers.LocationController;
 import controllers.CountryController;
 import icontrollers.ILocationController;
 import icontrollers.ICountryController;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -42,7 +43,12 @@ public class LocationView extends javax.swing.JInternalFrame {
         }
 
     }
-
+   public void FIlterAngka(KeyEvent b){
+       if (Character.isAlphabetic(b.getKeyChar())) {
+           b.consume();
+           JOptionPane.showMessageDialog(null, "Masukkan Hanya Angka", "Peringatan", JOptionPane.WARNING_MESSAGE);
+       }
+   }
     public void refresh() {
         DefaultTableModel model = (DefaultTableModel) tblLocation.getModel();
 
@@ -117,6 +123,18 @@ public class LocationView extends javax.swing.JInternalFrame {
         jLabel6.setText("State Province");
 
         jLabel7.setText("City");
+
+        txtLocationId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtLocationIdKeyTyped(evt);
+            }
+        });
+
+        txtStreetAddress.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtStreetAddressActionPerformed(evt);
+            }
+        });
 
         cbCountryId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -363,6 +381,15 @@ public class LocationView extends javax.swing.JInternalFrame {
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPrintActionPerformed
+
+    private void txtStreetAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStreetAddressActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtStreetAddressActionPerformed
+
+    private void txtLocationIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLocationIdKeyTyped
+        // TODO add your handling code here:
+        FIlterAngka(evt);
+    }//GEN-LAST:event_txtLocationIdKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
