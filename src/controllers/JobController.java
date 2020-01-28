@@ -50,9 +50,9 @@ public class JobController implements IJobController{
     }
 
     @Override
-    public String save(String id, String title, Integer min, Integer max) {
+    public String save(String id, String title, String min, String max) {
         String result = "";
-        Job job = new Job(id, title, min, max);
+        Job job = new Job(id, title,Integer.parseInt(min), Integer.parseInt(max));
         if (jdao.save(job)) {
             result = "Data Saved Successfull";
         } else {

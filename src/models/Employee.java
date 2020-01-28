@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Insane
+ * @author yuyun
  */
 @Entity
 @Table(name = "EMPLOYEES")
@@ -79,6 +81,8 @@ public class Employee implements Serializable {
     @JoinColumn(name = "JOB_ID", referencedColumnName = "JOB_ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Job jobId;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "accountId", fetch = FetchType.LAZY)
+    private Account account;
     @OneToMany(mappedBy = "managerId", fetch = FetchType.LAZY)
     private List<Department> departmentList;
 
@@ -94,6 +98,20 @@ public class Employee implements Serializable {
         this.lastName = lastName;
         this.email = email;
         this.hireDate = hireDate;
+    }
+
+    public Employee(Integer employeeId, String firstName, String lastName, String email, String phoneNumber, Date hireDate, BigDecimal salary, BigDecimal commissionPct, Department departmentId, Employee managerId, Job jobId) {
+        this.employeeId = employeeId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.hireDate = hireDate;
+        this.salary = salary;
+        this.commissionPct = commissionPct;
+        this.departmentId = departmentId;
+        this.managerId = managerId;
+        this.jobId = jobId;
     }
 
     public Integer getEmployeeId() {
@@ -191,6 +209,14 @@ public class Employee implements Serializable {
 
     public void setJobId(Job jobId) {
         this.jobId = jobId;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     @XmlTransient

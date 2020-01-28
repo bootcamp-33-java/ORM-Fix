@@ -16,7 +16,7 @@ public interface IJobController {
     public Job getById(String id);
     public List<Job> getAll();
     public List<Job> search(Object key);
-    public String save(String id, String title, Integer min, Integer max);
+    public String save(String id, String title, String min, String max);
     public String delete(String id);
     
 }

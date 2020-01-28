@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package idaos;
+package icontrollers;
 
-import java.math.BigDecimal;
 import java.util.List;
 import models.Country;
 
@@ -13,18 +12,19 @@ import models.Country;
  *
  * @author ASUS
  */
-public interface ICountryDAO {
+public interface ICountryController {
+
     public List<Country> getAll();
 
     public Country getById(String id);
 
     public List<Country> search(String keyword);
 
-//    public boolean insert(Country country);
+//    public String insert(String id, String name, String region);
 //
-//    public boolean update(Country country);
-    
-    public boolean save(Country country);
+//    public String update(String id, String name, String region);
 
-    public boolean delete(String id);
+    public String save(String id, String name, String region);
+    
+    public String delete(String id);
 }

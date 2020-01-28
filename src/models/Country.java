@@ -53,6 +53,12 @@ public class Country implements Serializable {
     public Country(String countryId) {
         this.countryId = countryId;
     }
+    
+    public Country(String countryId, String countryName, Region regionId) {
+        this.countryId = countryId;
+        this.countryName = countryName;
+        this.regionId = regionId;
+    }
 
     public String getCountryId() {
         return countryId;
@@ -61,6 +67,7 @@ public class Country implements Serializable {
     public void setCountryId(String countryId) {
         this.countryId = countryId;
     }
+    
 
     public String getCountryName() {
         return countryName;

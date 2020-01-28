@@ -5,95 +5,79 @@
  */
 package daos;
 
-import models.Region;
+import idaos.IDepartmentDAO;
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import models.Department;
+import models.Employee;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import idaos.IRegionDAO;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import org.hibernate.Query;
 
 /**
  *
- * @author aqira
+ * @author BWP
  */
-public class RegionDAO implements IRegionDAO {
+public class DepartmentDAO implements IDepartmentDAO {
 
+    private SessionFactory sessionFactory;
     private Session session;
     private Transaction transaction;
-    private SessionFactory sessionFactory;
 
-    public RegionDAO(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public DepartmentDAO(SessionFactory factory) {
+        this.sessionFactory = factory;
     }
 
     @Override
-    public List<Region> getAll() {
-        List<Region> region = new ArrayList<>();
-        session = this.sessionFactory.openSession();
-        transaction = session.beginTransaction();
-        try {
-            String hql = "FROM Region";
-            region = session.createQuery(hql).list();
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        }
-        return region;
-    }
-
-    @Override
-    public Region getById(BigDecimal id) {
-        Region region = null;
-        session = this.sessionFactory.openSession();
-        transaction = session.beginTransaction();
-        try {
-            String hql = "FROM Region WHERE regionId = :a";
-            Query query = session.createQuery(hql);
-            query.setParameter("a", id);
-            region = (Region) query.uniqueResult();
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        }
-        return region;
-    }
-
-    @Override
-    public List<Region> search(Object key) {
-        List<Region> region = new ArrayList<>();
-        session = this.sessionFactory.openSession();
-        transaction = session.beginTransaction();
-        try {
-            String hql = "FROM Region WHERE lower(regionName) LIKE :a";
-            Query query = session.createQuery(hql);
-            query.setParameter("a", "%" + key.toString().toLowerCase() + "%");
-            region = query.list();
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            session.close();
-        }
-        return region;
-    }
-
-    @Override
-    public boolean delete(BigDecimal id) {
-        boolean result = false;
+    public List<Department> getAll() {
+        List<Department> department = new ArrayList<>();
         session = sessionFactory.openSession();
         transaction = session.beginTransaction();
         try {
-            Region region = (Region) session.load(Region.class, id);
-            session.delete(region); //delete
+            String query = "FROM Department";
+            department = session.createQuery(query).list();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        }
+        return department;
+    }
+
+    @Override
+    public Department getById(Short id) {
+        Department department = null;
+        session = this.sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        try {
+            String hql = "FROM Department WHERE departmentId = :a";
+            Query query = session.createQuery(hql);
+            query.setParameter("a", id);
+            department = (Department) query.uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return department;
+    }
+
+    @Override
+    public boolean save(Department department) {
+
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        boolean result = false;
+        try {
+            session.saveOrUpdate(department);
             transaction.commit();
             result = true;
         } catch (Exception e) {
@@ -108,12 +92,13 @@ public class RegionDAO implements IRegionDAO {
     }
 
     @Override
-    public boolean save(Region r) {
+    public boolean delete(Short id) {
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
         boolean result = false;
         try {
-            session = sessionFactory.openSession();
-            transaction = session.beginTransaction();
-            session.saveOrUpdate(r); //insert & update
+            Department department = (Department) session.load(Department.class, id);
+            session.delete(department);
             transaction.commit();
             result = true;
         } catch (Exception e) {
@@ -125,5 +110,27 @@ public class RegionDAO implements IRegionDAO {
             session.close();
         }
         return result;
+    }
+
+    @Override
+    public List<Department> search(Object key) {
+        List<Department> department = new ArrayList<>();
+        session = this.sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        try {
+            String hql = "FROM Department WHERE lower(departmentName) LIKE :a "
+                    + "OR lower(managerId) LIKE :a OR lower(locationId) LIKE :a";
+            Query query = session.createQuery(hql);
+            query.setParameter("a", "%" + key.toString().toLowerCase() + "%");
+            department = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return department;
     }
 }
