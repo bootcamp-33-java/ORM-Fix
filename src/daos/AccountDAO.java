@@ -7,6 +7,7 @@ package daos;
 
 import idaos.IAccountDAO;
 import models.Account;
+import models.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -28,8 +29,6 @@ public class AccountDAO implements IAccountDAO {
 
     @Override
     public boolean register(Account a) {
-        String password = BCrypt.hashpw(a.getPassword(), BCrypt.gensalt());
-        a.setPassword(password);
         boolean result = false;
         session = this.sessionFactory.openSession();
         transaction = session.beginTransaction();
@@ -49,26 +48,21 @@ public class AccountDAO implements IAccountDAO {
     }
 
     @Override
-    public boolean login(String username, String password) {
-        boolean result = false;
+    public Account getByUsername(String username) {
+        Account account = null;
         session = this.sessionFactory.openSession();
         transaction = session.beginTransaction();
         try {
-            Account account = (Account) session.createQuery("FROM Account a WHERE username = :userName")
-                    .setParameter("userName", username)
-                    .uniqueResult();
-
-            if (account != null && BCrypt.checkpw(password, account.getPassword())) {
-               result= true;
-            }
-            transaction.commit();
+            account = (Account) session.get(Employee.class, username);
         } catch (Exception e) {
+            e.printStackTrace();
             if (transaction != null) {
                 transaction.rollback();
             }
-            e.printStackTrace();
+        } finally {
+            session.close();
         }
-        return result;
+        return account;
     }
 
 }
