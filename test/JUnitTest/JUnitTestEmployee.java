@@ -1,11 +1,15 @@
+package JUnitTest;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tools;
 
+
+import controllers.AccountController;
 import controllers.EmployeeController;
+import icontrollers.IAccountController;
 import icontrollers.IEmployeeController;
 import java.text.ParseException;
 import java.util.List;
@@ -14,6 +18,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Assert;
 import org.junit.Test;
+import tools.HibernateUtil;
 
 /**
  *
@@ -25,6 +30,7 @@ public class JUnitTestEmployee {
 SessionFactory factory = HibernateUtil.getSessionFactory();
         Session session = factory.openSession();
         IEmployeeController iec = new EmployeeController(factory);
+        IAccountController iac = new AccountController(factory);
 
     @Test
     public void testGetAll() {
@@ -48,6 +54,10 @@ SessionFactory factory = HibernateUtil.getSessionFactory();
     }
     @Test
      public void testDelete() {
-        Assert.assertNull(iec.delete("80"));
+        Assert.assertEquals("Data Berhasil Dihapus",iec.delete("90"));
     }
+     
+    
+     
+     
 }
