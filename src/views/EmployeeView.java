@@ -156,6 +156,8 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         jLabel12 = new javax.swing.JLabel();
         btnRefresh = new javax.swing.JButton();
 
+        setClosable(true);
+
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
         jLabel4.setForeground(new java.awt.Color(0, 51, 51));
