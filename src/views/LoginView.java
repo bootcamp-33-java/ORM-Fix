@@ -138,10 +138,11 @@ public class LoginView extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
         if (iac.login(txtUsername.getText(), txtPassword.getText())) {
+            labelNotif.setVisible(false);
             this.setVisible(false);
             new MainView().setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(null, "Login Gagal, coba lagi");
+            labelNotif.setVisible(true);
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 

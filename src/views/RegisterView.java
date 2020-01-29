@@ -173,13 +173,14 @@ public class RegisterView extends javax.swing.JFrame {
 
         if (password1.equals(password2) && !password1.equals("")) { //Kalo bener
             String password = txtPassword.getText();
-            if (password.length() > 8) {
+            if (password.length() <= 8) {
                 if (checkPass(password)) {
                     iac.save(txtEmployeeId.getText(), txtUsername.getText(), txtPassword.getText());
                     this.setVisible(false);
                     new LoginView().setVisible(true);
                 } else {
                     notifPass1.setText("Password tidak sesuai dengan ketentuan");
+                    JOptionPane.showMessageDialog(null, "Password paling panjang 8 karakter, dan harus memiliki nomor, huruf besar, dan huruf kecil");
                     notifPass1.setVisible(true);
                 }
             } else {
