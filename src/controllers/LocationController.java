@@ -19,34 +19,37 @@ import org.hibernate.SessionFactory;
  */
 public class LocationController implements ILocationController {
 
-    private ILocationDAO ldao;
+    private ILocationDAO ildao;
 
     public LocationController(SessionFactory factory) {
-        ldao = new LocationDAO(factory);
+        ildao = new LocationDAO(factory);
     }
 
     @Override
     public List<Location> getAll() {
-        return ldao.getAll();
+        return ildao.getAll();
 
     }
 
     @Override
     public Location getById(String id) {
-        return ldao.getById(new Short(id));
+        return ildao.getById(new Short(id));
 
     }
 
     @Override
     public List<Location> search(String key) {
-         return ldao.search(key);
+         return ildao.search(key);
 
     }
 
     @Override
-    public String save(String id, String streetAddress, String postalCode, String city, String stateProvince, String countryId) {
-        Location location = new Location(Short.parseShort(id), streetAddress, postalCode, city, stateProvince, new Country(countryId));
-        if (ldao.save(location)) {
+    public String save(String id, String streetAddress,
+            String postalCode, String city, 
+            String stateProvince, String countryId) {
+        Location location = new Location(new Short(id), streetAddress,
+                postalCode, city, stateProvince, new Country(countryId));
+        if (ildao.save(location)) {
             return "Save Succes";
 
         } else {
@@ -56,7 +59,7 @@ public class LocationController implements ILocationController {
 
     @Override
     public String delete(String id) {
-        if (ldao.delete(new Short(id))) {
+        if (ildao.delete(new Short(id))) {
             return "Delete Success";
         }
         return "Delete failed";
