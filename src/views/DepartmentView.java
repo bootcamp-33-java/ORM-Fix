@@ -26,7 +26,7 @@ import tools.HibernateUtil;
 
 /**
  *
- * @author FIKRI-PC
+ * @author Galih&Bagus
  */
 public class DepartmentView extends javax.swing.JInternalFrame {
 
