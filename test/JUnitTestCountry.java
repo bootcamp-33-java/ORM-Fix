@@ -45,9 +45,9 @@ public class JUnitTestCountry {
     public void testsave() {
         icc.save("OO", "NamaSaya", "2");
         Country c = icc.getById("OO");
-        Assert.assertEquals("OO", c.getCountryId());
-        Assert.assertEquals("NamaSaya", c.getCountryName());
-        Assert.assertEquals(new BigDecimal("2"), c.getRegionId().getRegionId());
+        Assert.assertEquals("OO", c.getId());
+        Assert.assertEquals("NamaSaya", c.getName());
+        Assert.assertEquals(new BigDecimal("2"), c.getRegion().getId());
 
     }
     @Test

@@ -29,8 +29,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Job.findAll", query = "SELECT j FROM Job j")
-    , @NamedQuery(name = "Job.findByJobId", query = "SELECT j FROM Job j WHERE j.jobId = :jobId")
-    , @NamedQuery(name = "Job.findByJobTitle", query = "SELECT j FROM Job j WHERE j.jobTitle = :jobTitle")
+    , @NamedQuery(name = "Job.findByJobId", query = "SELECT j FROM Job j WHERE j.id = :id")
+    , @NamedQuery(name = "Job.findByJobTitle", query = "SELECT j FROM Job j WHERE j.title = :title")
     , @NamedQuery(name = "Job.findByMinSalary", query = "SELECT j FROM Job j WHERE j.minSalary = :minSalary")
     , @NamedQuery(name = "Job.findByMaxSalary", query = "SELECT j FROM Job j WHERE j.maxSalary = :maxSalary")})
 public class Job implements Serializable {
@@ -39,50 +39,50 @@ public class Job implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "JOB_ID")
-    private String jobId;
+    private String id;
     @Basic(optional = false)
     @Column(name = "JOB_TITLE")
-    private String jobTitle;
+    private String title;
     @Column(name = "MIN_SALARY")
     private Integer minSalary;
     @Column(name = "MAX_SALARY")
     private Integer maxSalary;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jobId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "job", fetch = FetchType.LAZY)
     private List<Employee> employeeList;
 
     public Job() {
     }
 
-    public Job(String jobId) {
-        this.jobId = jobId;
+    public Job(String id) {
+        this.id = id;
     }
 
-    public Job(String jobId, String jobTitle) {
-        this.jobId = jobId;
-        this.jobTitle = jobTitle;
+    public Job(String id, String jobTitle) {
+        this.id = id;
+        this.title = jobTitle;
     }
 
-    public Job(String id, String title, Integer min, Integer max) {
-        this.jobId = id;
-        this.jobTitle = title;
-        this.minSalary = min;
-        this.maxSalary = max;
+    public Job(String id, String title, Integer minSalary, Integer maxSalary) {
+        this.id = id;
+        this.title = title;
+        this.minSalary = minSalary;
+        this.maxSalary = maxSalary;
     }
 
-    public String getJobId() {
-        return jobId;
+    public String getId() {
+        return id;
     }
 
-    public void setJobId(String jobId) {
-        this.jobId = jobId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getJobTitle() {
-        return jobTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Integer getMinSalary() {
@@ -113,7 +113,7 @@ public class Job implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (jobId != null ? jobId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -124,7 +124,7 @@ public class Job implements Serializable {
             return false;
         }
         Job other = (Job) object;
-        if ((this.jobId == null && other.jobId != null) || (this.jobId != null && !this.jobId.equals(other.jobId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -132,7 +132,7 @@ public class Job implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Job[ jobId=" + jobId + " ]";
+        return "models.Job[ id=" + id + " ]";
     }
     
 }

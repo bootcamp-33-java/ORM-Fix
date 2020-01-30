@@ -54,11 +54,11 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         model.addColumn("Location id");
 
         for (Employee e : iec.getAll()) {
-            cbManagerId.addItem(e.getEmployeeId().toString());
+            cbManagerId.addItem(e.getId().toString());
         }
 
         for (Location l : ilc.getAll()) {
-            cbLocationId.addItem(l.getLocationId().toString());
+            cbLocationId.addItem(l.getId().toString());
         }
         refresh();
     }
@@ -321,10 +321,10 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         List<Department> departments = idc.getAll();
         for (int i = 0; i < departments.size(); i++) {
             row[0] = i + 1;
-            row[1] = departments.get(i).getDepartmentId();
-            row[2] = departments.get(i).getDepartmentName();
-            row[3] = departments.get(i).getManagerId() == null ? "0" : departments.get(i).getManagerId().getEmployeeId();
-            row[4] = departments.get(i).getLocationId().getLocationId();
+            row[1] = departments.get(i).getId();
+            row[2] = departments.get(i).getName();
+            row[3] = departments.get(i).getEmployee() == null ? "0" : departments.get(i).getEmployee().getManager();
+            row[4] = departments.get(i).getLocation().getId();        
             model.addRow(row);
         }
     }
@@ -358,10 +358,10 @@ public class DepartmentView extends javax.swing.JInternalFrame {
                 Object[] row = new Object[5];
                 for (int i = 0; i < departments.size(); i++) {
                     row[0] = i + 1;
-                    row[1] = departments.get(i).getDepartmentId();
-                    row[2] = departments.get(i).getDepartmentName();
-                    row[3] = departments.get(i).getManagerId() == null ? "0" : departments.get(i).getManagerId().getEmployeeId();
-                    row[4] = departments.get(i).getLocationId().getLocationId();
+                    row[1] = departments.get(i).getId();
+                    row[2] = departments.get(i).getName();
+                    row[3] = departments.get(i).getEmployee() == null ? "0" : departments.get(i).getEmployee().getId();
+                    row[4] = departments.get(i).getLocation().getId();
                     model.addRow(row);
                 }
             } else if (cbSearch.getSelectedItem().equals("Search by id")) {
@@ -371,10 +371,10 @@ public class DepartmentView extends javax.swing.JInternalFrame {
                 Department departments = idc.getById(txtSearch.getText());
                 Object[] row = new Object[5];
                 row[0] = 1;
-                row[1] = departments.getDepartmentId();
-                row[2] = departments.getDepartmentName();
-                row[3] = departments.getManagerId() == null ? "0" : departments.getManagerId().getEmployeeId();
-                row[4] = departments.getLocationId().getLocationId();
+                row[1] = departments.getId();
+                row[2] = departments.getName();
+                row[3] = departments.getEmployee() == null ? "0" : departments.getEmployee().getId();
+                row[4] = departments.getLocation().getId();
                 model.addRow(row);
             }
         } catch (Exception e) {

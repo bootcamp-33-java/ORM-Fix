@@ -6,6 +6,7 @@
 package views;
 
 import controllers.RegionController;
+import controllers.RegionControllerJadi;
 import icontrollers.IRegionController;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +42,8 @@ public class RegionView extends javax.swing.JInternalFrame {
         region = irc.getAll();
         for (int i = 0; i < region.size(); i++) {
             row[0] = i + 1;
-            row[1] = region.get(i).getRegionId();
-            row[2] = region.get(i).getRegionName();
+            row[1] = region.get(i).getId();
+            row[2] = region.get(i).getName();
             model.addRow(row);
         }
     }
@@ -301,8 +302,8 @@ public class RegionView extends javax.swing.JInternalFrame {
         Object[] row = new Object[3];
 
         row[0] = 1;
-        row[1] = region.getRegionId();
-        row[2] = region.getRegionName();
+        row[1] = region.getId();
+        row[2] = region.getName();
         model.addRow(row);
     }//GEN-LAST:event_btnGetByIdActionPerformed
 
@@ -316,8 +317,8 @@ public class RegionView extends javax.swing.JInternalFrame {
 
         for (int i = 0; i < region.size(); i++) {
             row[0] = i + 1;
-            row[1] = region.get(i).getRegionId();
-            row[2] = region.get(i).getRegionName();
+            row[1] = region.get(i).getId();
+            row[2] = region.get(i).getName();
 
             model.addRow(row);
         }
