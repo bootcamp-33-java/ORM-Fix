@@ -30,51 +30,51 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Country.findAll", query = "SELECT c FROM Country c")
-    , @NamedQuery(name = "Country.findByCountryId", query = "SELECT c FROM Country c WHERE c.countryId = :countryId")
-    , @NamedQuery(name = "Country.findByCountryName", query = "SELECT c FROM Country c WHERE c.countryName = :countryName")})
+    , @NamedQuery(name = "Country.findByCountryId", query = "SELECT c FROM Country c WHERE c.id = :id")
+    , @NamedQuery(name = "Country.findByCountryName", query = "SELECT c FROM Country c WHERE c.name = :name")})
 public class Country implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "COUNTRY_ID")
-    private String countryId;
+    private String id;
     @Column(name = "COUNTRY_NAME")
-    private String countryName;
-    @OneToMany(mappedBy = "countryId", fetch = FetchType.LAZY)
+    private String name;
+    @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
     private List<Location> locationList;
     @JoinColumn(name = "REGION_ID", referencedColumnName = "REGION_ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Region regionId;
+    private Region region;
 
     public Country() {
     }
 
-    public Country(String countryId) {
-        this.countryId = countryId;
+    public Country(String id) {
+        this.id = id;
     }
     
-    public Country(String countryId, String countryName, Region regionId) {
-        this.countryId = countryId;
-        this.countryName = countryName;
-        this.regionId = regionId;
+    public Country(String id, String name, Region region) {
+        this.id = id;
+        this.name = name;
+        this.region = region;
     }
 
-    public String getCountryId() {
-        return countryId;
+    public String getId() {
+        return id;
     }
 
-    public void setCountryId(String countryId) {
-        this.countryId = countryId;
+    public void setId(String id) {
+        this.id = id;
     }
     
 
-    public String getCountryName() {
-        return countryName;
+    public String getName() {
+        return name;
     }
 
-    public void setCountryName(String countryName) {
-        this.countryName = countryName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @XmlTransient
@@ -86,18 +86,18 @@ public class Country implements Serializable {
         this.locationList = locationList;
     }
 
-    public Region getRegionId() {
-        return regionId;
+    public Region getRegion() {
+        return region;
     }
 
-    public void setRegionId(Region regionId) {
-        this.regionId = regionId;
+    public void setRegion(Region region) {
+        this.region = region;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (countryId != null ? countryId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -108,7 +108,7 @@ public class Country implements Serializable {
             return false;
         }
         Country other = (Country) object;
-        if ((this.countryId == null && other.countryId != null) || (this.countryId != null && !this.countryId.equals(other.countryId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -116,7 +116,7 @@ public class Country implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Country[ countryId=" + countryId + " ]";
+        return "models.Country[ id=" + id + " ]";
     }
     
 }

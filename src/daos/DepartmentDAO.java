@@ -6,6 +6,7 @@
 package daos;
 
 import idaos.IDepartmentDAO;
+import idaos.IDepartmentDAO;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.util.ArrayList;

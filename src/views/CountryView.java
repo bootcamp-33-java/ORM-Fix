@@ -11,7 +11,6 @@ import icontrollers.ICountryController;
 import icontrollers.IRegionController;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Country;
 import models.Region;
@@ -39,7 +38,7 @@ public class CountryView extends javax.swing.JInternalFrame {
         ShowTableCountry();
         cbRegionId.addItem("Select");
         for (Region r : irc.getAll()) {
-            cbRegionId.addItem(String.valueOf(r.getRegionId()));
+            cbRegionId.addItem(String.valueOf(r.getId()));
         }
     }
 
@@ -53,26 +52,26 @@ public class CountryView extends javax.swing.JInternalFrame {
     }
 
     public void ShowTableCountry() {
-        List<Country> countrys = new ArrayList<>();
+        List<Country> countries = new ArrayList<>();
         Object[] row = new Object[4];
-        countrys = icc.getAll();
-        for (int i = 0; i < countrys.size(); i++) {
+        countries = icc.getAll();
+        for (int i = 0; i < countries.size(); i++) {
             row[0] = i + 1;
-            row[1] = countrys.get(i).getCountryId();
-            row[2] = countrys.get(i).getCountryName();
-            row[3] = countrys.get(i).getRegionId().getRegionId();
+            row[1] = countries.get(i).getId();
+            row[2] = countries.get(i).getName();
+            row[3] = countries.get(i).getRegion().getId();
             model.addRow(row);
         }
     }
     public void ShowTableCountry(String s) {
-        List<Country> countrys = new ArrayList<>();
+        List<Country> countries = new ArrayList<>();
         Object[] row = new Object[5];
-        countrys = icc.getAll();
-        for (int i = 0; i < countrys.size(); i++) {
+        countries = icc.getAll();
+        for (int i = 0; i < countries.size(); i++) {
             row[0] = i + 1;
-            row[1] = countrys.get(i).getCountryId();
-            row[2] = countrys.get(i).getCountryName();
-            row[3] = countrys.get(i).getRegionId().getRegionId();
+            row[1] = countries.get(i).getId();
+            row[2] = countries.get(i).getName();
+            row[3] = countries.get(i).getRegion().getId();
             model.addRow(row);
         }
     }

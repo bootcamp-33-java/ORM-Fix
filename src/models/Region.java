@@ -29,8 +29,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Region.findAll", query = "SELECT r FROM Region r")
-    , @NamedQuery(name = "Region.findByRegionId", query = "SELECT r FROM Region r WHERE r.regionId = :regionId")
-    , @NamedQuery(name = "Region.findByRegionName", query = "SELECT r FROM Region r WHERE r.regionName = :regionName")})
+    , @NamedQuery(name = "Region.findByRegionId", query = "SELECT r FROM Region r WHERE r.id = :id")
+    , @NamedQuery(name = "Region.findByRegionName", query = "SELECT r FROM Region r WHERE r.name = :name")})
 public class Region implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,37 +38,38 @@ public class Region implements Serializable {
     @Id //primary key
     @Basic(optional = false) //not null
     @Column(name = "REGION_ID")
-    private BigDecimal regionId;
+    private BigDecimal id;
     @Column(name = "REGION_NAME")
-    private String regionName;
-    @OneToMany(mappedBy = "regionId", fetch = FetchType.LAZY) //relasinya || yang pertama adalah dirinya (ONE)
+    private String name;
+    @OneToMany(mappedBy = "region", fetch = FetchType.LAZY) //relasinya || yang pertama adalah dirinya (ONE)
     private List<Country> countryList;
 
     public Region() {
     }
 
-    public Region(BigDecimal regionId) {
-        this.regionId = regionId;
+    public Region(BigDecimal id) {
+        this.id = id;
     }
 
-    public Region(BigDecimal bigDecimal, String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Region(BigDecimal id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-    public BigDecimal getRegionId() {
-        return regionId;
+    public BigDecimal getId() {
+        return id;
     }
 
-    public void setRegionId(BigDecimal regionId) {
-        this.regionId = regionId;
+    public void setId(BigDecimal id) {
+        this.id = id;
     }
 
-    public String getRegionName() {
-        return regionName;
+    public String getName() {
+        return name;
     }
 
-    public void setRegionName(String regionName) {
-        this.regionName = regionName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @XmlTransient
@@ -83,7 +84,7 @@ public class Region implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (regionId != null ? regionId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -94,7 +95,7 @@ public class Region implements Serializable {
             return false;
         }
         Region other = (Region) object;
-        if ((this.regionId == null && other.regionId != null) || (this.regionId != null && !this.regionId.equals(other.regionId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -102,11 +103,6 @@ public class Region implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Region[ regionId=" + regionId + " ]";
+        return "models.Region[ id=" + id + " ]";
     }
-
-    public boolean getId() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

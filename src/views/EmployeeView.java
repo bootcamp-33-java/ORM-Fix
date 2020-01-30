@@ -56,15 +56,15 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         model.addColumn("Department Id");
 
         for (Employee e : iec.getAll()) {
-            cbManagerId.addItem(e.getEmployeeId().toString());
+            cbManagerId.addItem(e.getId().toString());
         }
 
         for (Department d : idc.getAll()) {
-            cbDepartmentId.addItem(d.getDepartmentId().toString());
+            cbDepartmentId.addItem(d.getId().toString());
         }
 
         for (Job j : ijc.getAll()) {
-            cbJobId.addItem(j.getJobId());
+            cbJobId.addItem(j.getId());
         }
         refresh();
     }
@@ -93,17 +93,17 @@ public class EmployeeView extends javax.swing.JInternalFrame {
 
         for (int i = 0; i < employee.size(); i++) {
             row[0] = i + 1;
-            row[1] = employee.get(i).getEmployeeId();
+            row[1] = employee.get(i).getId();
             row[2] = employee.get(i).getFirstName();
             row[3] = employee.get(i).getLastName();
             row[4] = employee.get(i).getEmail();
             row[5] = employee.get(i).getPhoneNumber();
             row[6] = employee.get(i).getHireDate();
-            row[7] = employee.get(i).getJobId().getJobId();
+            row[7] = employee.get(i).getJob().getId();
             row[8] = employee.get(i).getSalary();
             row[9] = employee.get(i).getCommissionPct()==null ? "0" : employee.get(i).getCommissionPct();
-            row[10] = employee.get(i).getManagerId() == null ? "0" : employee.get(i).getManagerId().getEmployeeId();
-            row[11] = employee.get(i).getDepartmentId() == null ? "0" : employee.get(i).getDepartmentId().getDepartmentId();
+            row[10] = employee.get(i).getManager() == null ? "0" : employee.get(i).getManager().getId();
+            row[11] = employee.get(i).getDepartment() == null ? "0" : employee.get(i).getDepartment().getId();
             model.addRow(row);
         }
     }
@@ -451,17 +451,17 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         Object[] row = new Object[12];
         for (int i = 0; i < employee.size(); i++) {
             row[0] = count + 1;
-            row[1] = employee.get(i).getEmployeeId();
+            row[1] = employee.get(i).getId();
             row[2] = employee.get(i).getFirstName();
             row[3] = employee.get(i).getLastName();
             row[4] = employee.get(i).getEmail();
             row[5] = employee.get(i).getPhoneNumber();
             row[6] = employee.get(i).getHireDate();
-            row[7] = employee.get(i).getJobId();
+            row[7] = employee.get(i).getJob();
             row[8] = employee.get(i).getSalary();
             row[9] = employee.get(i).getCommissionPct();
-            row[10] = employee.get(i).getManagerId() == null ? "0" : employee.get(count).getManagerId().getEmployeeId();
-            row[11] = employee.get(i).getDepartmentId();
+            row[10] = employee.get(i).getManager() == null ? "0" : employee.get(count).getManager().getId();
+            row[11] = employee.get(i).getDepartment();
             model.addRow(row);
             count++;
 
