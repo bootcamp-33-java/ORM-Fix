@@ -420,6 +420,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         resetTextDepartment();// TODO add your handling code here:
+        refresh();
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
