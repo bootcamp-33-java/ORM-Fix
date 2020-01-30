@@ -25,6 +25,7 @@ public class LoginView extends javax.swing.JFrame {
      */
     public LoginView() {
         initComponents();
+        labelNotif.setVisible(false);
     }
 
     /**
@@ -43,6 +44,7 @@ public class LoginView extends javax.swing.JFrame {
         btnRegister = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
+        labelNotif = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,6 +75,10 @@ public class LoginView extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel3.setText("Login");
 
+        labelNotif.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        labelNotif.setForeground(new java.awt.Color(255, 0, 0));
+        labelNotif.setText("Salah Memasukkan Username atau Password!");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -94,7 +100,11 @@ public class LoginView extends javax.swing.JFrame {
                                         .addComponent(btnLogin)
                                         .addGap(18, 18, 18)
                                         .addComponent(btnRegister))
-                                    .addComponent(txtPassword)))))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtPassword)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(labelNotif)
+                                            .addGap(0, 0, Short.MAX_VALUE)))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(165, 165, 165)
                         .addComponent(jLabel3)))
@@ -113,11 +123,13 @@ public class LoginView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addGap(3, 3, 3)
+                .addComponent(labelNotif)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogin)
                     .addComponent(btnRegister))
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         pack();
@@ -125,13 +137,13 @@ public class LoginView extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        if ((iac.login(txtUsername.getText(), txtPassword.getText()))) {
+        if (iac.login(txtUsername.getText(), txtPassword.getText())) {
+            labelNotif.setVisible(false);
+            this.setVisible(false);
             new MainView().setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(null, "Login Gagal, coba lagi");
+            labelNotif.setVisible(true);
         }
-
-
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
@@ -182,12 +194,14 @@ public class LoginView extends javax.swing.JFrame {
         });
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnRegister;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel labelNotif;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables

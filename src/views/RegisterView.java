@@ -25,6 +25,8 @@ public class RegisterView extends javax.swing.JFrame {
 
     public RegisterView() {
         initComponents();
+        notifPass1.setVisible(false);
+        notifPass2.setVisible(false);
 
     }
 
@@ -48,8 +50,11 @@ public class RegisterView extends javax.swing.JFrame {
         txtPassword = new javax.swing.JPasswordField();
         txtPasswordRetype = new javax.swing.JPasswordField();
         btnBack = new javax.swing.JButton();
+        notifPass1 = new javax.swing.JLabel();
+        notifPass2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Register");
@@ -82,62 +87,73 @@ public class RegisterView extends javax.swing.JFrame {
             }
         });
 
+        notifPass1.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        notifPass1.setForeground(new java.awt.Color(255, 0, 0));
+        notifPass1.setText("Password tidak boleh kosong");
+
+        notifPass2.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        notifPass2.setForeground(new java.awt.Color(255, 0, 0));
+        notifPass2.setText("Password tidak sama dengan yang sebelumnya");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(157, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(162, 162, 162))
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel2)
                     .addComponent(jLabel5)
+                    .addComponent(jLabel2)
                     .addComponent(jLabel4))
                 .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtEmployeeId, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtEmployeeId, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtUsername)
+                    .addComponent(notifPass1)
                     .addComponent(txtPassword)
-                    .addComponent(txtPasswordRetype))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 138, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtPasswordRetype)
+                    .addComponent(notifPass2)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnBack)
                         .addGap(18, 18, 18)
-                        .addComponent(btnDaftar)
-                        .addGap(126, 126, 126))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(162, 162, 162))))
+                        .addComponent(btnDaftar)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel1)
-                .addGap(38, 38, 38)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtEmployeeId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtPasswordRetype, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(28, 28, 28)
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(2, 2, 2)
+                .addComponent(notifPass1)
+                .addGap(2, 2, 2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPasswordRetype, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(notifPass2)
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDaftar)
                     .addComponent(btnBack))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         pack();
@@ -149,17 +165,36 @@ public class RegisterView extends javax.swing.JFrame {
 
     private void btnDaftarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDaftarActionPerformed
         // TODO add your handling code here:
-        
-//      -----------------------------Password-----------------------------------
-
         String password1 = txtPassword.getText();
         String password2 = txtPasswordRetype.getText();
-        if (password1.equals(password2) && !password1.equals("")) {
-            JOptionPane.showMessageDialog(null, iac.save(txtEmployeeId.getText(), txtUsername.getText(),txtPassword.getText()));
-            this.setVisible(false);
-            new LoginView().setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "Silahkan Coba Lagi");
+
+        notifPass1.setVisible(false);
+        notifPass2.setVisible(false);
+
+        if (password1.equals(password2) && !password1.equals("")) { //Kalo bener
+            String password = txtPassword.getText();
+            if (password.length() <= 8) {
+                if (checkPass(password)) {
+                    iac.save(txtEmployeeId.getText(), txtUsername.getText(), txtPassword.getText());
+                    this.setVisible(false);
+                    new LoginView().setVisible(true);
+                } else {
+                    notifPass1.setText("Password tidak sesuai dengan ketentuan");
+                    JOptionPane.showMessageDialog(null, "Password paling panjang 8 karakter, dan harus memiliki nomor, huruf besar, dan huruf kecil");
+                    notifPass1.setVisible(true);
+                }
+            } else {
+                notifPass1.setText("Password terlalu panjang");
+                notifPass1.setVisible(true);
+            }
+        } else { //Kalo salah
+            if (password1.equals("")) { //Kalo password belum di masukkin
+                notifPass1.setText("Password tidak boleh kosong");
+                notifPass1.setVisible(true);
+            } else if (!password1.equals(password2)) { // Kalo password tidak sama dengan yang sebelumnya
+                notifPass2.setVisible(true);
+            }
+
         }
 
     }//GEN-LAST:event_btnDaftarActionPerformed
@@ -205,6 +240,29 @@ public class RegisterView extends javax.swing.JFrame {
         });
     }
 
+    public static boolean checkPass(String password1) {
+
+        boolean hasNum = false;
+        boolean hasLower = false;
+        boolean hasUpper = false;
+        char c;
+        for (int i = 0; i < password1.length(); i++) {
+
+            c = password1.charAt(i);
+            if (Character.isDigit(c)) {
+                hasNum = true;
+            } else if (Character.isLowerCase(c)) {
+                hasLower = true;
+            } else if (Character.isUpperCase(c)) {
+                hasUpper = true;
+            }
+            if (hasNum && hasLower && hasUpper) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDaftar;
@@ -213,6 +271,8 @@ public class RegisterView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel notifPass1;
+    private javax.swing.JLabel notifPass2;
     private javax.swing.JTextField txtEmployeeId;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JPasswordField txtPasswordRetype;
