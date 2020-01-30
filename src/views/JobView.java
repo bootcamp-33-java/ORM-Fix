@@ -45,8 +45,8 @@ public class JobView extends javax.swing.JInternalFrame {
         job = jcc.getAll();
         for (int i = 0; i < job.size(); i++) {
             row[0] = i + 1;
-            row[1] = job.get(i).getJobId();
-            row[2] = job.get(i).getJobTitle();
+            row[1] = job.get(i).getId();
+            row[2] = job.get(i).getTitle();
             row[3] = job.get(i).getMinSalary();
             row[4] = job.get(i).getMaxSalary();
             model.addRow(row);
@@ -275,8 +275,8 @@ public class JobView extends javax.swing.JInternalFrame {
 
         for (int i = 0; i < job.size(); i++) {
             row[0] = i + 1;
-            row[1] = job.get(i).getJobId();
-            row[2] = job.get(i).getJobTitle();
+            row[1] = job.get(i).getId();
+            row[2] = job.get(i).getTitle();
             row[3] = job.get(i).getMinSalary();
             row[4] = job.get(i).getMaxSalary();
             model.addRow(row);
@@ -297,8 +297,8 @@ public class JobView extends javax.swing.JInternalFrame {
         model.setRowCount(0);
         Object[] row = new Object[5];
         row[0] = 1;
-        row[1] = job.getJobId();
-        row[2] = job.getJobTitle();
+        row[1] = job.getId();
+        row[2] = job.getTitle();
         row[3] = job.getMinSalary();
         row[4] = job.getMaxSalary();
         model.addRow(row);

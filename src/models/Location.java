@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Location.findAll", query = "SELECT l FROM Location l")
-    , @NamedQuery(name = "Location.findByLocationId", query = "SELECT l FROM Location l WHERE l.locationId = :locationId")
+    , @NamedQuery(name = "Location.findByLocationId", query = "SELECT l FROM Location l WHERE l.id = :id")
     , @NamedQuery(name = "Location.findByStreetAddress", query = "SELECT l FROM Location l WHERE l.streetAddress = :streetAddress")
     , @NamedQuery(name = "Location.findByPostalCode", query = "SELECT l FROM Location l WHERE l.postalCode = :postalCode")
     , @NamedQuery(name = "Location.findByCity", query = "SELECT l FROM Location l WHERE l.city = :city")
@@ -41,7 +41,7 @@ public class Location implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "LOCATION_ID")
-    private Short locationId;
+    private Short id;
     @Column(name = "STREET_ADDRESS")
     private String streetAddress;
     @Column(name = "POSTAL_CODE")
@@ -53,40 +53,40 @@ public class Location implements Serializable {
     private String stateProvince;
     @JoinColumn(name = "COUNTRY_ID", referencedColumnName = "COUNTRY_ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Country countryId;
-    @OneToMany(mappedBy = "locationId", fetch = FetchType.LAZY)
+    private Country country;
+    @OneToMany(mappedBy = "location", fetch = FetchType.LAZY)
     private List<Department> departmentList;
 
     public Location() {
     }
 
-    public Location(Short locationId, String streetAddress, String postalCode, String city, String stateProvince, Country countryId) {
-        this.locationId = locationId;
+    public Location(Short id, String streetAddress, String postalCode, String city, String stateProvince, Country country) {
+        this.id = id;
         this.streetAddress = streetAddress;
         this.postalCode = postalCode;
         this.city = city;
         this.stateProvince = stateProvince;
-        this.countryId = countryId;
+        this.country = country;
     }
     
 
-    public Location(Short locationId) {
-        this.locationId = locationId;
+    public Location(Short id) {
+        this.id = id;
     }
 
-    public Location(Short locationId, String city) {
-        this.locationId = locationId;
+    public Location(Short id, String city) {
+        this.id = id;
         this.city = city;
     }
 
    
 
-    public Short getLocationId() {
-        return locationId;
+    public Short getId() {
+        return id;
     }
 
-    public void setLocationId(Short locationId) {
-        this.locationId = locationId;
+    public void setId(Short id) {
+        this.id = id;
     }
 
     public String getStreetAddress() {
@@ -121,12 +121,12 @@ public class Location implements Serializable {
         this.stateProvince = stateProvince;
     }
 
-    public Country getCountryId() {
-        return countryId;
+    public Country getCountry() {
+        return country;
     }
 
-    public void setCountryId(Country countryId) {
-        this.countryId = countryId;
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     @XmlTransient
@@ -141,7 +141,7 @@ public class Location implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (locationId != null ? locationId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -152,7 +152,7 @@ public class Location implements Serializable {
             return false;
         }
         Location other = (Location) object;
-        if ((this.locationId == null && other.locationId != null) || (this.locationId != null && !this.locationId.equals(other.locationId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -160,7 +160,7 @@ public class Location implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Location[ locationId=" + locationId + " ]";
+        return "models.Location[ id=" + id + " ]";
     }
     
 }

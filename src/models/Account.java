@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a")
-    , @NamedQuery(name = "Account.findByAccountId", query = "SELECT a FROM Account a WHERE a.accountId = :accountId")
+    , @NamedQuery(name = "Account.findByAccountId", query = "SELECT a FROM Account a WHERE a.id = :id")
     , @NamedQuery(name = "Account.findByUsername", query = "SELECT a FROM Account a WHERE a.username = :username")
     , @NamedQuery(name = "Account.findByPassword", query = "SELECT a FROM Account a WHERE a.password = :password")})
 public class Account implements Serializable {
@@ -37,7 +37,7 @@ public class Account implements Serializable {
     @Basic(optional = false)
     @JoinColumn(name = "ACCOUNT_ID", referencedColumnName = "EMPLOYEE_ID", insertable = false, updatable = false)
     @OneToOne(optional = false, fetch = FetchType.LAZY)
-    private Employee accountId;
+    private Employee id;
     @Basic(optional = false)
     @Column(name = "USERNAME")
     private String username;
@@ -49,22 +49,22 @@ public class Account implements Serializable {
     public Account() {
     }
 
-    public Account(Employee accountId) {
-        this.accountId = accountId;
+    public Account(Employee id) {
+        this.id = id;
     }
 
-    public Account(Employee accountId, String username, String password) {
-        this.accountId = accountId;
+    public Account(Employee id, String username, String password) {
+        this.id = id;
         this.username = username;
         this.password = password;
     }
 
-    public Employee getAccountId() {
-        return accountId;
+    public Employee getId() {
+        return id;
     }
 
-    public void setAccountId(Employee accountId) {
-        this.accountId = accountId;
+    public void setId(Employee id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -87,7 +87,7 @@ public class Account implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (accountId != null ? accountId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -98,7 +98,7 @@ public class Account implements Serializable {
             return false;
         }
         Account other = (Account) object;
-        if ((this.accountId == null && other.accountId != null) || (this.accountId != null && !this.accountId.equals(other.accountId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -106,7 +106,7 @@ public class Account implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Account[ accountId=" + accountId + " ]";
+        return "models.Account[ id=" + id + " ]";
     }
     
 }
