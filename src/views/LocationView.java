@@ -9,6 +9,7 @@ import controllers.LocationController;
 import controllers.CountryController;
 import icontrollers.ILocationController;
 import icontrollers.ICountryController;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -38,9 +39,24 @@ public class LocationView extends javax.swing.JInternalFrame {
         refresh();
         cbCountryId.addItem("Select");
         for (Country c : icc.getAll()) {
-            cbCountryId.addItem(String.valueOf(c.getCountryId()));
+            cbCountryId.addItem(String.valueOf(c.getId()));
         }
 
+    }
+
+    public void FilterHuruf(KeyEvent a) {
+        if (Character.isDigit(a.getKeyChar())) {
+            a.consume();
+            //Pesan Dialog Boleh Di Hapus Ini Hanya Sebagai Contoh
+            JOptionPane.showMessageDialog(null, "Masukan Hanya Huruf", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    public void FIlterAngka(KeyEvent b) {
+        if (Character.isAlphabetic(b.getKeyChar())) {
+            b.consume();
+            JOptionPane.showMessageDialog(null, "Masukkan Hanya Angka", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        }
     }
 
     public void refresh() {
@@ -52,12 +68,12 @@ public class LocationView extends javax.swing.JInternalFrame {
         location = ilc.getAll();
         for (int i = 0; i < location.size(); i++) {
             row[0] = i + 1;
-            row[1] = location.get(i).getLocationId();
+            row[1] = location.get(i).getId();
             row[2] = location.get(i).getStreetAddress();
             row[3] = location.get(i).getPostalCode();
             row[4] = location.get(i).getCity();
             row[5] = location.get(i).getStateProvince();
-            row[6] = location.get(i).getCountryId().getCountryId();
+            row[6] = location.get(i).getCountry().getId();
             model.addRow(row);
         }
     }
@@ -68,9 +84,11 @@ public class LocationView extends javax.swing.JInternalFrame {
         txtPostalCode.setText("");
         txtCity.setText("");
         txtStateProvince.setText("");
+         cbCountryId.setSelectedItem(0);
         txtLocationId.setEditable(true);
+       
         btnSave.setEnabled(true);
-        cbCountryId.setSelectedItem(null);
+        
     }
 
     /**
@@ -117,6 +135,35 @@ public class LocationView extends javax.swing.JInternalFrame {
         jLabel6.setText("State Province");
 
         jLabel7.setText("City");
+
+        txtLocationId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtLocationIdKeyTyped(evt);
+            }
+        });
+
+        txtStreetAddress.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtStreetAddressActionPerformed(evt);
+            }
+        });
+
+        txtStateProvince.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtStateProvinceKeyTyped(evt);
+            }
+        });
+
+        txtCity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCityActionPerformed(evt);
+            }
+        });
+        txtCity.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCityKeyTyped(evt);
+            }
+        });
 
         cbCountryId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -276,11 +323,26 @@ public class LocationView extends javax.swing.JInternalFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
+
         JOptionPane.showMessageDialog(null, ilc.save(txtLocationId.getText(), txtStreetAddress.getText(), txtPostalCode.getText(), txtCity.getText(),
                 txtStateProvince.getText(), cbCountryId.getSelectedItem().toString()));
+        if (txtLocationId.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Location ID Masih Kosong");
+        } else if (txtStreetAddress.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Street Address Masih Kosong");
+        } else if (txtPostalCode.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Postal Code Masih Kosong");
+        } else if (txtCity.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "tCity Masih Kosong");
+        } else if (txtStateProvince.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "State Province Masih Kosong");
+        } else if (cbCountryId.getSelectedItem().equals("")) {
+            JOptionPane.showMessageDialog(this, "Country ID Masih Kosong");
+        }
+
         refresh();
-        txtLocationId.setEditable(true);
-        txtreset();
+
+        
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -305,12 +367,12 @@ public class LocationView extends javax.swing.JInternalFrame {
 
         for (int i = 0; i < location.size(); i++) {
             row[0] = i + 1;
-            row[1] = location.get(i).getLocationId();
+            row[1] = location.get(i).getId();
             row[2] = location.get(i).getStreetAddress();
             row[3] = location.get(i).getPostalCode();
             row[4] = location.get(i).getCity();
             row[5] = location.get(i).getStateProvince();
-            row[6] = location.get(i).getCountryId().getCountryId();
+            row[6] = location.get(i).getCountry().getId();
             model.addRow(row);
         }
     }//GEN-LAST:event_btnSearchActionPerformed
@@ -318,22 +380,22 @@ public class LocationView extends javax.swing.JInternalFrame {
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         // TODO add your handling code here:
         txtreset();
-        refresh();
+
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnByIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnByIdActionPerformed
         // TODO add your handling code here:
-         DefaultTableModel model = (DefaultTableModel) tblLocation.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblLocation.getModel();
         Location location = ilc.getById(txtSearch.getText());
         model.setRowCount(0);
         Object[] row = new Object[7];
-        row[0] =1;
-        row[1] =location.getLocationId();
-        row[2] =location.getStreetAddress();
-        row[3] =location.getPostalCode();
-        row[4] =location.getCity();
-        row[5] =location.getStateProvince();
-        row[6] =location.getCountryId().getCountryId();
+        row[0] = 1;
+        row[1] = location.getId();
+        row[2] = location.getStreetAddress();
+        row[3] = location.getPostalCode();
+        row[4] = location.getCity();
+        row[5] = location.getStateProvince();
+        row[6] = location.getCountry().getId();
         model.addRow(row);
 
     }//GEN-LAST:event_btnByIdActionPerformed
@@ -345,15 +407,22 @@ public class LocationView extends javax.swing.JInternalFrame {
 
         int i = tblLocation.getSelectedRow();
 
-        txtreset();
-
+        txtLocationId.setText("");
+        txtStreetAddress.setText("");
+        txtPostalCode.setText("");
+        txtCity.setText("");
+        txtStateProvince.setText("");
+        cbCountryId.setSelectedItem("");
+        
+        txtLocationId.setEditable(false);
         txtLocationId.setText(model.getValueAt(i, 1).toString());
         txtStreetAddress.setText(model.getValueAt(i, 2).toString());
         txtPostalCode.setText(model.getValueAt(i, 3).toString());
         txtCity.setText(model.getValueAt(i, 4).toString());
-        cbCountryId.setSelectedItem(model.getValueAt(i, 6).toString());
         txtStateProvince.setText(model.getValueAt(i, 5).toString());
-        txtLocationId.setEditable(false);
+        cbCountryId.setSelectedItem(model.getValueAt(i, 6).toString());
+
+       
     }//GEN-LAST:event_tblLocationMouseClicked
 
     private void cbCountryIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCountryIdActionPerformed
@@ -363,6 +432,30 @@ public class LocationView extends javax.swing.JInternalFrame {
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPrintActionPerformed
+
+    private void txtStreetAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStreetAddressActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtStreetAddressActionPerformed
+
+    private void txtLocationIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLocationIdKeyTyped
+        // TODO add your handling code here:
+        FIlterAngka(evt);
+    }//GEN-LAST:event_txtLocationIdKeyTyped
+
+    private void txtCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCityActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txtCityActionPerformed
+
+    private void txtCityKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCityKeyTyped
+        // TODO add your handling code here:
+        FilterHuruf(evt);
+    }//GEN-LAST:event_txtCityKeyTyped
+
+    private void txtStateProvinceKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStateProvinceKeyTyped
+        // TODO add your handling code here:
+        FilterHuruf(evt);
+    }//GEN-LAST:event_txtStateProvinceKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -6,6 +6,7 @@
 package daos;
 
 import idaos.ILocationDAO;
+import idaos.ILocationDAO;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +54,7 @@ public class LocationDAO implements ILocationDAO {
         session = this.sessionFactory.openSession();
         transaction = session.beginTransaction();
         try {
-            locations =(Location)session.get(Location.class, id);
+            locations = (Location) session.get(Location.class, id);
         } catch (Exception e) {
             e.printStackTrace();
             if (transaction != null) {
@@ -91,11 +92,12 @@ public class LocationDAO implements ILocationDAO {
 
     @Override
     public boolean save(Location l) {
+      
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
         boolean result = false;
-
         try {
-            session = this.sessionFactory.openSession();
-            transaction = session.beginTransaction();
+
             session.saveOrUpdate(l);
             transaction.commit();
             result = true;

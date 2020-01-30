@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
-    , @NamedQuery(name = "Employee.findByEmployeeId", query = "SELECT e FROM Employee e WHERE e.employeeId = :employeeId")
+    , @NamedQuery(name = "Employee.findByEmployeeId", query = "SELECT e FROM Employee e WHERE e.id = :id")
     , @NamedQuery(name = "Employee.findByFirstName", query = "SELECT e FROM Employee e WHERE e.firstName = :firstName")
     , @NamedQuery(name = "Employee.findByLastName", query = "SELECT e FROM Employee e WHERE e.lastName = :lastName")
     , @NamedQuery(name = "Employee.findByEmail", query = "SELECT e FROM Employee e WHERE e.email = :email")
@@ -50,7 +50,7 @@ public class Employee implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "EMPLOYEE_ID")
-    private Integer employeeId;
+    private Integer id;
     @Column(name = "FIRST_NAME")
     private String firstName;
     @Basic(optional = false)
@@ -72,36 +72,36 @@ public class Employee implements Serializable {
     private BigDecimal commissionPct;
     @JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "DEPARTMENT_ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Department departmentId;
-    @OneToMany(mappedBy = "managerId", fetch = FetchType.LAZY)
+    private Department department;
+    @OneToMany(mappedBy = "manager", fetch = FetchType.LAZY)
     private List<Employee> employeeList;
     @JoinColumn(name = "MANAGER_ID", referencedColumnName = "EMPLOYEE_ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Employee managerId;
+    private Employee manager;
     @JoinColumn(name = "JOB_ID", referencedColumnName = "JOB_ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Job jobId;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "accountId", fetch = FetchType.LAZY)
+    private Job job;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "id", fetch = FetchType.LAZY)
     private Account account;
-    @OneToMany(mappedBy = "managerId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
     private List<Department> departmentList;
 
     public Employee() {
     }
 
-    public Employee(Integer employeeId) {
-        this.employeeId = employeeId;
+    public Employee(Integer id) {
+        this.id = id;
     }
 
-    public Employee(Integer employeeId, String lastName, String email, Date hireDate) {
-        this.employeeId = employeeId;
+    public Employee(Integer id, String lastName, String email, Date hireDate) {
+        this.id = id;
         this.lastName = lastName;
         this.email = email;
         this.hireDate = hireDate;
     }
 
-    public Employee(Integer employeeId, String firstName, String lastName, String email, String phoneNumber, Date hireDate, BigDecimal salary, BigDecimal commissionPct, Department departmentId, Employee managerId, Job jobId) {
-        this.employeeId = employeeId;
+    public Employee(Integer id, String firstName, String lastName, String email, String phoneNumber, Date hireDate, BigDecimal salary, BigDecimal commissionPct, Department department, Employee manager, Job job) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -109,17 +109,17 @@ public class Employee implements Serializable {
         this.hireDate = hireDate;
         this.salary = salary;
         this.commissionPct = commissionPct;
-        this.departmentId = departmentId;
-        this.managerId = managerId;
-        this.jobId = jobId;
+        this.department = department;
+        this.manager = manager;
+        this.job = job;
     }
 
-    public Integer getEmployeeId() {
-        return employeeId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setEmployeeId(Integer employeeId) {
-        this.employeeId = employeeId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -178,12 +178,12 @@ public class Employee implements Serializable {
         this.commissionPct = commissionPct;
     }
 
-    public Department getDepartmentId() {
-        return departmentId;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setDepartmentId(Department departmentId) {
-        this.departmentId = departmentId;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     @XmlTransient
@@ -195,20 +195,20 @@ public class Employee implements Serializable {
         this.employeeList = employeeList;
     }
 
-    public Employee getManagerId() {
-        return managerId;
+    public Employee getManager() {
+        return manager;
     }
 
-    public void setManagerId(Employee managerId) {
-        this.managerId = managerId;
+    public void setManager(Employee manager) {
+        this.manager = manager;
     }
 
-    public Job getJobId() {
-        return jobId;
+    public Job getJob() {
+        return job;
     }
 
-    public void setJobId(Job jobId) {
-        this.jobId = jobId;
+    public void setJob(Job job) {
+        this.job = job;
     }
 
     public Account getAccount() {
@@ -231,7 +231,7 @@ public class Employee implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (employeeId != null ? employeeId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -242,7 +242,7 @@ public class Employee implements Serializable {
             return false;
         }
         Employee other = (Employee) object;
-        if ((this.employeeId == null && other.employeeId != null) || (this.employeeId != null && !this.employeeId.equals(other.employeeId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -250,7 +250,7 @@ public class Employee implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Employee[ employeeId=" + employeeId + " ]";
+        return "models.Employee[ id=" + id + " ]";
     }
     
 }

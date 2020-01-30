@@ -5,8 +5,6 @@ package JUnitTest;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 import controllers.AccountController;
 import controllers.EmployeeController;
 import icontrollers.IAccountController;
@@ -25,26 +23,28 @@ import tools.HibernateUtil;
  * @author yuyun
  */
 public class JUnitTestEmployee {
+
     public JUnitTestEmployee() {
     }
-SessionFactory factory = HibernateUtil.getSessionFactory();
-        Session session = factory.openSession();
-        IEmployeeController iec = new EmployeeController(factory);
-        IAccountController iac = new AccountController(factory);
+    SessionFactory factory = HibernateUtil.getSessionFactory();
+    Session session = factory.openSession();
+    IEmployeeController iec = new EmployeeController(factory);
 
     @Test
     public void testGetAll() {
         List<Employee> listEmployee = iec.getAll();
         Assert.assertNotNull(listEmployee);
     }
+
     @Test
     public void testSearch() {
         List<Employee> listSearch = iec.search("King");
         Assert.assertNotNull(listSearch);
     }
+
     @Test
-     public void testSave()throws ParseException{
-        iec.save("88","Boy", "William", "boyWil@gmail.com", "08344456", "12-02-2019","2000","0","10","200","ST_CLERK");
+    public void testSave() throws ParseException {
+        iec.save("88", "Boy", "William", "boyWil@gmail.com", "08344456", "12-02-2019", "2000", "0", "10", "200", "ST_CLERK");
 //    
 //        Assert.assertEquals("Boy", m.getStreetAddress());
 //        Assert.assertEquals("William", m.getPostalCode());
@@ -52,12 +52,10 @@ SessionFactory factory = HibernateUtil.getSessionFactory();
 //        Assert.assertEquals("Manng", m.getStateProvince());
 //        Assert.assertEquals("JP", m.getCountryId().getCountryId());
     }
+
     @Test
-     public void testDelete() {
-        Assert.assertEquals("Data Berhasil Dihapus",iec.delete("90"));
+    public void testDelete() {
+        Assert.assertEquals("Data Berhasil Dihapus", iec.delete("90"));
     }
-     
-    
-     
-     
+
 }
