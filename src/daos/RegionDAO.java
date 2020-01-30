@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import idaos.IRegionDAO;
+import idaos.IRegionDAO;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;

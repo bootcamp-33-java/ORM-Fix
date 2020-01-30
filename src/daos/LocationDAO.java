@@ -6,6 +6,7 @@
 package daos;
 
 import idaos.ILocationDAO;
+import idaos.ILocationDAO;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;

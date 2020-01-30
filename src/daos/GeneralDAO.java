@@ -13,12 +13,13 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
+import idaos.IGeneralDAO;
 
 /**
  *
  * @author aqira
  */
-public class GeneralDAO<T> {
+public class GeneralDAO<T> implements IGeneralDAO<T> {
 
     private Session session;
     private Transaction transaction;
@@ -34,13 +35,13 @@ public class GeneralDAO<T> {
         }
     }
 
-//    @Override
+    @Override
     public List<T> getAll() {
-        List<T> rs = new ArrayList<>();
+        List<T> ts = new ArrayList<>();
         session = this.sessionFactory.openSession();
         transaction = session.beginTransaction();
         try {
-            rs = session.createQuery("FROM " + t.getClass().getSimpleName()).list();
+            ts = session.createQuery("FROM " + t.getClass().getSimpleName()).list();
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -48,29 +49,29 @@ public class GeneralDAO<T> {
                 transaction.rollback();
             }
         }
-        return rs;
+        return ts;
     }
 
-//    @Override
-    public Region getById(BigDecimal id) {
-        Region region = null;
+    @Override
+    public T getById(T t) {
         session = this.sessionFactory.openSession();
         transaction = session.beginTransaction();
         try {
-            String hql = "FROM Region WHERE regionId = :a";
-            Query query = session.createQuery(hql);
-            query.setParameter("a", id);
-            region = (Region) query.uniqueResult();
+//            String hql = "FROM " + t.getClass().getSimpleName() + " WHERE "+ t.getClass().getField(t) +" = :a";
+//            Query query = session.createQuery(hql);
+//            query.setParameter("a", t);
+//            t = (T) query.uniqueResult();
+            System.out.println(t.getClass().get);
         } catch (Exception e) {
             e.printStackTrace();
             if (transaction != null) {
                 transaction.rollback();
             }
         }
-        return region;
+        return t;
     }
 
-//    @Override
+    @Override
     public List<Region> search(Object key) {
         List<Region> region = new ArrayList<>();
         session = this.sessionFactory.openSession();
@@ -91,28 +92,7 @@ public class GeneralDAO<T> {
         return region;
     }
 
-//    @Override
-    public boolean delete(BigDecimal id) {
-        boolean result = false;
-        session = sessionFactory.openSession();
-        transaction = session.beginTransaction();
-        try {
-            Region region = (Region) session.load(Region.class, id);
-            session.delete(region); //delete
-            transaction.commit();
-            result = true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            session.close();
-        }
-        return result;
-    }
-
-//    @Override
+    @Override
     public boolean saveOrDelete(T t, boolean isDelete) {
         boolean result = false;
         try {
@@ -136,3 +116,4 @@ public class GeneralDAO<T> {
         return result;
     }
 }
+

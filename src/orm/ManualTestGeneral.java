@@ -6,8 +6,6 @@
 package orm;
 
 import daos.GeneralDAO;
-import daos.RegionDAO;
-import idaos.IRegionDAO;
 import java.math.BigDecimal;
 import models.Account;
 import models.Country;
@@ -26,12 +24,10 @@ import tools.HibernateUtil;
 public class ManualTestGeneral {
 
     SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-    IRegionDAO irdao = new RegionDAO(sessionFactory);
 
     /**
      * @param args the command line arguments
      */
-
     public static void main(String[] args) {
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -45,9 +41,12 @@ public class ManualTestGeneral {
         GeneralDAO<Account> adao = new GeneralDAO<>(sessionFactory, Account.class);
 
         // ---------------------------------------- Testing  ----------------------------------------//       
+        //Cobain Qir
+        Region r = new Region(new BigDecimal(1));
+        rdao.getById(r);
         //Get All
 /*
-        //Spesial kata Bagus
+        //Spesial aja
         for (Department t : ddao.getAll()) {
             System.out.print(t.getId() + "  | ");
             System.out.println((t.getEmployee() == null? null:t.getEmployee().getId())+ " |  ");
