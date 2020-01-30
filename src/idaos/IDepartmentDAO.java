@@ -11,7 +11,7 @@ import models.Department;
 
 /**
  *
- * @author BWP
+ * @author Galih&Bagus
  */
 public interface IDepartmentDAO {
     public List<Department> getAll();
