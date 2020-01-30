@@ -35,13 +35,14 @@ public class ManualTestEmployee {
 
         Job j = new Job();
         j.setJobId("AD_VP");
-
+String date1="12-02-1996";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        Date date = new Date();
+        Date date = simpleDateFormat.parse(date1);
         EmployeeDAO edao = new EmployeeDAO(sessionFactory);
                 //insert or update
-                Employee em = new Employee(207, "Aqira", "Kelana", "aqira.kelana", "081290497444", date, BigDecimal.valueOf(20000), BigDecimal.valueOf(0), d, new Employee(200), j);
+                Employee em = new Employee(209, "Aqira", "Kelana", "aq.kelana1", "081290497444", date, BigDecimal.valueOf(20000), BigDecimal.valueOf(0), d, new Employee(200), j);
                 System.out.println(edao.save(em));
+                System.out.println(date);
 //             
         //        //delete
         //        System.out.println(edao.delete(90));
