@@ -9,6 +9,7 @@ import controllers.CountryController;
 import controllers.RegionController;
 import icontrollers.ICountryController;
 import icontrollers.IRegionController;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -90,6 +91,14 @@ public class CountryView extends javax.swing.JInternalFrame {
         }
         ShowTableCountry();
     }
+    
+    public void FilterHuruf(KeyEvent a) {
+        if (Character.isDigit(a.getKeyChar())) {
+            a.consume();
+            //Pesan Dialog Boleh Di Hapus Ini Hanya Sebagai Contoh
+            JOptionPane.showMessageDialog(null, "Masukan Hanya Huruf", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -111,8 +120,9 @@ public class CountryView extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         cbRegionId = new javax.swing.JComboBox<>();
         txtSearchCountry = new javax.swing.JTextField();
-        btnSave = new javax.swing.JButton();
+        cbRegionId = new javax.swing.JComboBox<>();
         btnDelete = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
 
         setClosable(true);
@@ -159,17 +169,17 @@ public class CountryView extends javax.swing.JInternalFrame {
             }
         });
 
-        btnSave.setText("Save");
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveActionPerformed(evt);
-            }
-        });
-
         btnDelete.setText("Delete");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
+            }
+        });
+
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
             }
         });
 
@@ -200,12 +210,12 @@ public class CountryView extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtCountryId)
                                     .addComponent(txtCountryName)
-                                    .addComponent(cbRegionId, 0, 100, Short.MAX_VALUE))))
+                                    .addComponent(cbRegionId, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnReport)

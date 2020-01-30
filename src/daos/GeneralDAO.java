@@ -9,11 +9,14 @@ import models.Region;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import idaos.IRegionDAO;
+import idaos.ICountryDAO;
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
-import idaos.IGeneralDAO;
+import icontrollers.IGeneralDAO;
 
 /**
  *
@@ -35,52 +38,15 @@ public class GeneralDAO<T> implements IGeneralDAO<T> {
         }
     }
 
-    @Override
+//    @Override
+//    @Override
     public List<T> getAll() {
         List<T> ts = new ArrayList<>();
-        session = this.sessionFactory.openSession();
-        transaction = session.beginTransaction();
         try {
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
             ts = session.createQuery("FROM " + t.getClass().getSimpleName()).list();
             transaction.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        }
-        return ts;
-    }
-
-    @Override
-    public T getById(T t) {
-        session = this.sessionFactory.openSession();
-        transaction = session.beginTransaction();
-        try {
-//            String hql = "FROM " + t.getClass().getSimpleName() + " WHERE "+ t.getClass().getField(t) +" = :a";
-//            Query query = session.createQuery(hql);
-//            query.setParameter("a", t);
-//            t = (T) query.uniqueResult();
-            System.out.println(t.getClass().get);
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        }
-        return t;
-    }
-
-    @Override
-    public List<Region> search(Object key) {
-        List<Region> region = new ArrayList<>();
-        session = this.sessionFactory.openSession();
-        transaction = session.beginTransaction();
-        try {
-            String hql = "FROM Region WHERE lower(regionName) LIKE :a";
-            Query query = session.createQuery(hql);
-            query.setParameter("a", "%" + key.toString().toLowerCase() + "%");
-            region = query.list();
         } catch (Exception e) {
             e.printStackTrace();
             if (transaction != null) {
@@ -89,10 +55,70 @@ public class GeneralDAO<T> implements IGeneralDAO<T> {
         } finally {
             session.close();
         }
-        return region;
+        return ts;
     }
 
-    @Override
+//    @Override
+//    public Region getById(BigDecimal id) {
+//        Region region = null;
+//        session = this.sessionFactory.openSession();
+//        transaction = session.beginTransaction();
+//        try {
+//            String hql = "FROM Region WHERE regionId = :a";
+//            Query query = session.createQuery(hql);
+//            query.setParameter("a", id);
+//            region = (Region) query.uniqueResult();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            if (transaction != null) {
+//                transaction.rollback();
+//            }
+//        }
+//        return region;
+//    }
+//    @Override
+//    public List<T> search(Object key) {
+//        List<T> region = new ArrayList<>();
+//        session = this.sessionFactory.openSession();
+//        transaction = session.beginTransaction();
+//        try {
+//            String hql = "FROM Region WHERE lower(regionName) LIKE :a";
+//            Query query = session.createQuery(hql);
+//            query.setParameter("a", "%" + key.toString().toLowerCase() + "%");
+//            region = query.list();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            if (transaction != null) {
+//                transaction.rollback();
+//            }
+//        } finally {
+//            session.close();
+//        }
+//        return region;
+//    }
+
+//    @Override
+//    public boolean delete(T t) {
+//        boolean result = false;
+//        session = sessionFactory.openSession();
+//        transaction = session.beginTransaction();
+//        try {
+////            Region region = (Region) session.load(Region.class, id);
+//            session.delete(t); //delete
+//            transaction.commit();
+//            result = true;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            if (transaction != null) {
+//                transaction.rollback();
+//            }
+//        } finally {
+//            session.close();
+//        }
+//        return result;
+//    }
+//    @Override
+//    @Override
     public boolean saveOrDelete(T t, boolean isDelete) {
         boolean result = false;
         try {
@@ -101,7 +127,7 @@ public class GeneralDAO<T> implements IGeneralDAO<T> {
             if (isDelete) {
                 session.delete(t);
             } else {
-                session.saveOrUpdate(t); //insert & update & delete
+                session.saveOrUpdate(t);
             }
             transaction.commit();
             result = true;
@@ -115,5 +141,35 @@ public class GeneralDAO<T> implements IGeneralDAO<T> {
         }
         return result;
     }
+    
+//    @Override
+    public void search(){
+        List<String> key = new ArrayList<>();
+        for (Field declaredField : t.getClass().getDeclaredFields()) {
+            System.out.println(declaredField);
+        }
+        
+    }
+    
+//    @Override
+        public T getById(T t) {
+    //        Country region = null;
+//            List<T> l = new ArrayList<>();
+            try {
+            session = this.sessionFactory.openSession();
+            transaction = session.beginTransaction();
+//                l = session.createQuery("FROM " + t.getClass().getSimpleName()+"WHERE "+ t.getClass().getDeclaredField(id));
+//                String hql = "from Country WHERE countryId = :a";
+//                Query query = session.createQuery(hql);
+//                query.setParameter("a", id);
+//                l = (T )query.uniqueResult();
+                System.out.println(t.getClass().getSimpleName());
+            } catch (Exception e) {
+                e.printStackTrace();
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+            }
+            return t;
+        }
 }
-
