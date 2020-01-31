@@ -6,6 +6,7 @@
 package orm;
 
 import daos.GeneralDAO;
+import idaos.IGeneralDAO;
 import java.math.BigDecimal;
 import models.Account;
 import models.Country;
@@ -23,34 +24,43 @@ import tools.HibernateUtil;
  */
 public class ManualTestGeneral {
 
-    SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    private static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         // ---------------------------------------- Deklarasi DAO ----------------------------------------//
         GeneralDAO<Region> rdao = new GeneralDAO<>(sessionFactory, Region.class);
         GeneralDAO<Country> cdao = new GeneralDAO<>(sessionFactory, Country.class);
         GeneralDAO<Job> jdao = new GeneralDAO<>(sessionFactory, Job.class);
-        GeneralDAO<Department> ddao = new GeneralDAO<>(sessionFactory, Department.class);
+        IGeneralDAO<Department> igdao = new GeneralDAO<>(sessionFactory, Department.class);
         GeneralDAO<Location> ldao = new GeneralDAO<>(sessionFactory, Location.class);
         GeneralDAO<Employee> edao = new GeneralDAO<>(sessionFactory, Employee.class);
         GeneralDAO<Account> adao = new GeneralDAO<>(sessionFactory, Account.class);
 
         // ---------------------------------------- Testing  ----------------------------------------//       
-        //Cobain Qir
-        Region r = new Region(new BigDecimal(1));
-        rdao.getById(r);
-        //Get All
-/*
+        //Get By ID
+//        Department department = igdao.getById(new Short("120"));
+//        System.out.println(department.getId() + "\n" + department.getName());
+//        System.out.println(department.getEmployee() == null ? "0" : department.getEmployee().getId());
+//        System.out.println(department.getLocation().getId());
+//        System.out.println("-----------------------------------");
+        //Get Daata
+//        for (Department d : igdao.getData("11")) {
+//            System.out.println(d.getId()+ "\n" + d.getName());
+//            System.out.println(d.getEmployee() == null ? "0" : d.getEmployee().getId());
+//            System.out.println(d.getLocation().getId() + "\n");
+//        }
+
+        //SAVE OR DELETE
+        System.out.println(igdao.saveOrDelete(new Department(new Short("301")),true));
+        
+        //DEPARTMENT END ------------------------------------------------------------------------
+        
+        /*   
         //Spesial aja
-        for (Department t : ddao.getAll()) {
-            System.out.print(t.getId() + "  | ");
-            System.out.println((t.getEmployee() == null? null:t.getEmployee().getId())+ " |  ");
-        }
+        
         //Lain-lain
         for (Region t : rdao.getAll()) {
             System.out.print(t.getId() + "  | ");

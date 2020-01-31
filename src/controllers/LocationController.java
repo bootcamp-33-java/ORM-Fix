@@ -5,8 +5,10 @@
  */
 package controllers;
 
+import daos.GeneralDAO;
 import daos.LocationDAO;
 import icontrollers.ILocationController;
+import idaos.IGeneralDAO;
 import idaos.ILocationDAO;
 import java.util.List;
 import models.Country;
@@ -17,29 +19,29 @@ import org.hibernate.SessionFactory;
  *
  * @author HENSTECH
  */
-public class LocationController implements ILocationController {
+public class LocationController<T> implements ILocationController {
 
-    private ILocationDAO ildao;
+    private IGeneralDAO<Location> igdao;
 
-    public LocationController(SessionFactory factory) {
-        ildao = new LocationDAO(factory);
+    public LocationController(SessionFactory factory,Class<T> t) {
+        igdao = new GeneralDAO<Location>(factory, Location.class);
     }
 
     @Override
     public List<Location> getAll() {
-        return ildao.getAll();
+        return igdao.getData(null);
 
     }
 
     @Override
     public Location getById(String id) {
-        return ildao.getById(new Short(id));
+        return igdao.getById(new Short(id));
 
     }
 
     @Override
     public List<Location> search(String key) {
-         return ildao.search(key);
+         return igdao.getData(key);
 
     }
 
@@ -49,7 +51,7 @@ public class LocationController implements ILocationController {
             String stateProvince, String countryId) {
         Location location = new Location(new Short(id), streetAddress,
                 postalCode, city, stateProvince, new Country(countryId));
-        if (ildao.save(location)) {
+        if (igdao.saveOrDelete(location, false)) {
             return "Save Succes";
 
         } else {
@@ -59,7 +61,8 @@ public class LocationController implements ILocationController {
 
     @Override
     public String delete(String id) {
-        if (ildao.delete(new Short(id))) {
+        Location location = new Location(new Short(id));
+        if (igdao.saveOrDelete(location, true)) {
             return "Delete Success";
         }
         return "Delete failed";

@@ -12,7 +12,7 @@ import models.Location;
  *
  * @author FIKRI-PC
  */
-public interface ILocationController {
+public interface ILocationController<T> {
     public List<Location> getAll();
     public Location getById(String id);
     public List<Location> search(String key);

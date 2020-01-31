@@ -3,12 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/_Java%20Project/Netbeans%20Project/ORM-FixClone/src/views/RegionView.java</file>
-            <file>file:/F:/_Java%20Project/Netbeans%20Project/ORM-FixClone/src/tools/HibernateUtil.java</file>
-            <file>file:/F:/_Java%20Project/Netbeans%20Project/ORM-FixClone/src/views/CountryView.java</file>
-            <file>file:/F:/_Java%20Project/Netbeans%20Project/ORM-FixClone/src/daos/GeneralDAO.java</file>
-            <file>file:/F:/_Java%20Project/Netbeans%20Project/ORM-FixClone/test/JUnitTestCountry.java</file>
-            <file>file:/F:/_Java%20Project/Netbeans%20Project/ORM-FixClone/src/orm/ManualTestGeneral.java</file>
+            <file>file:/D:/METRO%20DATA/Project_JAVA/yang%20FIX/ORM-Fix/ORM-Fix/src/controllers/DepartmentController.java</file>
+            <file>file:/D:/METRO%20DATA/Project_JAVA/yang%20FIX/ORM-Fix/ORM-Fix/src/orm/ManualTestGeneral.java</file>
+            <file>file:/D:/METRO%20DATA/Project_JAVA/yang%20FIX/ORM-Fix/ORM-Fix/src/icontrollers/IDepartmentController.java</file>
         </group>
     </open-files>
 </project-private>

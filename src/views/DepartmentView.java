@@ -12,7 +12,9 @@ import icontrollers.IDepartmentController;
 import icontrollers.IEmployeeController;
 import icontrollers.ILocationController;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -35,9 +37,9 @@ public class DepartmentView extends javax.swing.JInternalFrame {
      */
     SessionFactory factory = HibernateUtil.getSessionFactory();
     Session session = factory.openSession();
-    IDepartmentController idc = new DepartmentController(factory);
-    IEmployeeController iec = new EmployeeController(factory);
-    ILocationController ilc = new LocationController(factory);
+    IDepartmentController idc = new DepartmentController(factory, Department.class);
+    IEmployeeController iec = new EmployeeController(factory, Employee.class);
+    ILocationController ilc = new LocationController(factory, Location.class);
     static private Pattern pattern;
     static private Matcher matcherID;
     private DefaultTableModel model;
@@ -52,13 +54,14 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         model.addColumn("Name");
         model.addColumn("Manager id");
         model.addColumn("Location id");
-
-        for (Employee e : iec.getAll()) {
-            cbManagerId.addItem(e.getId().toString());
+        
+        List<Employee> empl = iec.getAll();
+        for (Employee e : empl) {
+            cbManagerId.addItem(e.getId()+ "-" + e.getLastName());
         }
-
-        for (Location l : ilc.getAll()) {
-            cbLocationId.addItem(l.getId().toString());
+        List<Location> loct = ilc.getAll();
+        for (Location l : loct) {
+            cbLocationId.addItem(l.getId() + "-"+ l.getStreetAddress());
         }
         refresh();
     }
@@ -178,9 +181,9 @@ public class DepartmentView extends javax.swing.JInternalFrame {
             }
         });
 
-        lblManagerId.setText("Manager Id");
+        lblManagerId.setText("Manager ");
 
-        lblLocationId.setText("Location Id");
+        lblLocationId.setText("Location ");
 
         labelErrorID.setForeground(new java.awt.Color(255, 0, 0));
         labelErrorID.setText("id harus berisikan angka dan panjangnya 1 sampai 4 ");
@@ -261,7 +264,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
                         .addComponent(btnSave)
                         .addGap(43, 43, 43)
                         .addComponent(btnDelete)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE))
                     .addComponent(cbManagerId, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(180, 180, 180))
         );
@@ -323,8 +326,8 @@ public class DepartmentView extends javax.swing.JInternalFrame {
             row[0] = i + 1;
             row[1] = departments.get(i).getId();
             row[2] = departments.get(i).getName();
-            row[3] = departments.get(i).getEmployee() == null ? "0" : departments.get(i).getEmployee().getManager();
-            row[4] = departments.get(i).getLocation().getId();        
+            row[3] = departments.get(i).getManagerial() == null ? "0" : departments.get(i).getManagerial().getLastName();
+            row[4] = departments.get(i).getLocation().getStreetAddress();
             model.addRow(row);
         }
     }
@@ -360,7 +363,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
                     row[0] = i + 1;
                     row[1] = departments.get(i).getId();
                     row[2] = departments.get(i).getName();
-                    row[3] = departments.get(i).getEmployee() == null ? "0" : departments.get(i).getEmployee().getId();
+                    row[3] = departments.get(i).getManagerial() == null ? "0" : departments.get(i).getManagerial().getId();
                     row[4] = departments.get(i).getLocation().getId();
                     model.addRow(row);
                 }
@@ -373,7 +376,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
                 row[0] = 1;
                 row[1] = departments.getId();
                 row[2] = departments.getName();
-                row[3] = departments.getEmployee() == null ? "0" : departments.getEmployee().getId();
+                row[3] = departments.getManagerial() == null ? "0" : departments.getManagerial().getId();
                 row[4] = departments.getLocation().getId();
                 model.addRow(row);
             }
@@ -393,9 +396,12 @@ public class DepartmentView extends javax.swing.JInternalFrame {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         pattern = Pattern.compile("[0-9]{1,4}");
         matcherID = pattern.matcher(txtId.getText());
+        String[] managerId = cbManagerId.getSelectedItem().toString().split("-");
+        String[] locationId = cbLocationId.getSelectedItem().toString().split("-");
+ 
         try {
             if (matcherID.matches() && !txtName.getText().equals(null)) {
-                JOptionPane.showMessageDialog(null, idc.save(txtId.getText(), txtName.getText(), cbManagerId.getSelectedItem().toString(), cbLocationId.getSelectedItem().toString()));
+                JOptionPane.showMessageDialog(null, idc.save(txtId.getText(), txtName.getText(),managerId[0], locationId[0]));
                 resetTextDepartment();
             } else if (!matcherID.matches()) {
                 labelErrorID.setVisible(true);

@@ -46,7 +46,7 @@ public class Department implements Serializable {
     private List<Employee> employeeList;
     @JoinColumn(name = "MANAGER_ID", referencedColumnName = "EMPLOYEE_ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Employee employee;
+    private Employee managerial;
     @JoinColumn(name = "LOCATION_ID", referencedColumnName = "LOCATION_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Location location;
@@ -66,7 +66,7 @@ public class Department implements Serializable {
     public Department(Short id, String name, Employee employee, Location location) {
         this.id = id;
         this.name = name;
-        this.employee = employee;
+        this.managerial = employee;
         this.location = location;
     }
     
@@ -95,12 +95,12 @@ public class Department implements Serializable {
         this.employeeList = employeeList;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public Employee getManagerial() {
+        return managerial;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setManagerial(Employee managerial) {
+        this.managerial = managerial;
     }
 
     public Location getLocation() {

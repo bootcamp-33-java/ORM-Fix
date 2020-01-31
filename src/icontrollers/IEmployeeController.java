@@ -13,13 +13,16 @@ import models.Employee;
  *
  * @author yuyun
  */
-public interface IEmployeeController {
+public interface IEmployeeController<T> {
+
     public List<Employee> getAll();
 
+    Employee getById(String id);
+
     public List<Employee> search(String key);
-    
-    public String save(String id, String firstName, String lastName, String email, String phoneNumber, 
+
+    public String save(String id, String firstName, String lastName, String email, String phoneNumber,
             String hireDate, String salary, String commissionPct, String managerId, String departmentId, String jobId) throws ParseException;
-    
-    public String delete (String id);
+
+    public String delete(String id);
 }

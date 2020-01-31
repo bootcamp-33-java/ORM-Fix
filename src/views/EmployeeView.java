@@ -30,8 +30,8 @@ public class EmployeeView extends javax.swing.JInternalFrame {
 
     SessionFactory factory = HibernateUtil.getSessionFactory();
     Session session = factory.openSession();
-    IEmployeeController iec = new EmployeeController(factory);
-    IDepartmentController idc = new DepartmentController(factory);
+    IEmployeeController iec = new EmployeeController(factory, Employee.class);
+    IDepartmentController idc = new DepartmentController(factory, Department.class);
     IJobController ijc = new JobController(factory);
     private DefaultTableModel model;
 
@@ -55,13 +55,13 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         model.addColumn("Manager Id");
         model.addColumn("Department Id");
 
-        for (Employee e : iec.getAll()) {
-            cbManagerId.addItem(e.getId().toString());
-        }
-
-        for (Department d : idc.getAll()) {
-            cbDepartmentId.addItem(d.getId().toString());
-        }
+//        for (Employee e : iec.getAll()) {
+//            cbManagerId.addItem(e.getId().toString());
+//        }
+//
+//        for (Department d : idc.getAll()) {
+//            cbDepartmentId.addItem(d.getId().toString());
+//        }
 
         for (Job j : ijc.getAll()) {
             cbJobId.addItem(j.getId());

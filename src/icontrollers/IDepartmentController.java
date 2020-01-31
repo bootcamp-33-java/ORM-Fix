@@ -12,7 +12,7 @@ import models.Department;
  *
  * @author BWP
  */
-public interface IDepartmentController {
+public interface IDepartmentController<T> {
     public List<Department> getAll();
     public Department getById(String id);
     public List<Department> search(Object key);

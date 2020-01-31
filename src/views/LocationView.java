@@ -28,7 +28,7 @@ import tools.HibernateUtil;
 public class LocationView extends javax.swing.JInternalFrame {
 
     SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-    ILocationController ilc = new LocationController(sessionFactory);
+    ILocationController ilc = new LocationController(sessionFactory, Location.class);
     ICountryController icc = new CountryController(sessionFactory);
 
     /**

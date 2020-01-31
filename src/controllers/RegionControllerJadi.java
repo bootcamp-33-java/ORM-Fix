@@ -27,17 +27,10 @@ public class RegionControllerJadi {
         };
     }
 
-    public List<Region> getAll() {
-        return gdao.getAll();
-    }
 
 //    public Region getById(String id) {
 //        return gdao.getById(new BigDecimal(id));
 //    }
-
-    public List<Region> search(Object key) {
-        return gdao.search(key);
-    }
 
     public String save(String id, String name) {
         Region region = new Region(new BigDecimal(id), name);

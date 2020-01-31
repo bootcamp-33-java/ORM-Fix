@@ -83,7 +83,7 @@ public class Employee implements Serializable {
     private Job job;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "id", fetch = FetchType.LAZY)
     private Account account;
-    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "managerial", fetch = FetchType.LAZY)
     private List<Department> departmentList;
 
     public Employee() {

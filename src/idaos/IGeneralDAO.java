@@ -15,12 +15,9 @@ import models.Region;
  */
 public interface IGeneralDAO<T> {
 
-    List<T> getAll();
-
-    T getById(T t);
-
+    public T getById(Object key);
+    public List<T> getData(Object key);
     boolean saveOrDelete(T t, boolean isDelete);
 
-    List<T> search(T t);
 
 }

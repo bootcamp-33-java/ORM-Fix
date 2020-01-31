@@ -6,8 +6,10 @@
 package controllers;
 
 import daos.EmployeeDAO;
+import daos.GeneralDAO;
 import icontrollers.IEmployeeController;
 import idaos.IEmployeeDAO;
+import idaos.IGeneralDAO;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,50 +24,57 @@ import org.hibernate.SessionFactory;
  *
  * @author yuyun
  */
-public class EmployeeController implements IEmployeeController {
+public class EmployeeController<T> implements IEmployeeController {
 
-    private IEmployeeDAO iedao;
+    private IGeneralDAO<Employee> igdao;
 
-    public EmployeeController(SessionFactory factory) {
-        iedao = new EmployeeDAO(factory);
+    public EmployeeController(SessionFactory sessionFactory, Class<T> t) {
+        igdao = new GeneralDAO(sessionFactory, Employee.class);
+    }
+    
+    @Override
+    public Employee getById(String id) {
+        return igdao.getById(Integer.parseInt(id));
     }
 
     @Override
     public List<Employee> getAll() {
-        return iedao.getAll();
+        return igdao.getData(null);
     }
 
     @Override
     public List<Employee> search(String key) {
-        return iedao.search(key);
+        return igdao.getData(key);
     }
 
     @Override
     public String delete(String id) {
-        if (iedao.delete(Integer.parseInt(id))) {
-            return "Data Berhasil Dihapus";
-        } else {
-            return "Data Gagal Dihapus";
-        }
+//        if (igdao.saveOrDelete(,true)) {
+//            return "Data Berhasil Dihapus";
+//        } else {
+//            return "Data Gagal Dihapus";
+//        }
+        return "a";
     }
 
     @Override
     public String save(String id, String firstName, String lastName, String email, String phoneNumber, String hireDate,
             String salary, String commissionPct, String managerId, String departmentId, String jobId) throws ParseException {
-        
+
         //parsing string to date
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date date = simpleDateFormat.parse(hireDate);
 
-        Employee e = new Employee(Integer.parseInt(id), firstName, lastName, email, phoneNumber, date, 
+        Employee e = new Employee(Integer.parseInt(id), firstName, lastName, email, phoneNumber, date,
                 new BigDecimal(salary), new BigDecimal(commissionPct), new Department(new Short(departmentId)),
                 new Employee(Integer.parseInt(managerId)), new Job(jobId));
-        
-        if (iedao.save(e)) {
-            return "Data Berhasil Disimpan";
-        } else {
-            return "Data Gagal Disimpan";
-        }
+
+//        if (igdao.save(e)) {
+//            return "Data Berhasil Disimpan";
+//        } else {
+//            return "Data Gagal Disimpan";
+//        }
+        return "a";
     }
 
 }

@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
 import idaos.IGeneralDAO;
+import java.io.Serializable;
+import java.lang.reflect.Field;
 
 /**
  *
@@ -36,51 +38,43 @@ public class GeneralDAO<T> implements IGeneralDAO<T> {
     }
 
     @Override
-    public List<T> getAll() {
+    public List<T> getData(Object key) {
         List<T> ts = new ArrayList<>();
         session = this.sessionFactory.openSession();
         transaction = session.beginTransaction();
+        List<String> listnya = new ArrayList<>();
         try {
-            ts = session.createQuery("FROM " + t.getClass().getSimpleName()).list();
-            transaction.commit();
+            String hql = "FROM " + t.getClass().getSimpleName() + (key == null ? "   " : " WHERE ");
+            for (Field field : t.getClass().getDeclaredFields()) {
+                if (!field.getName().matches(".*(List|UID)") && key != null) {
+                    hql = hql + "LOWER(" + field.getName() + ") LIKE '%"+ key+ "%' OR ";
+                }
+            }
+            hql = hql.substring(0,hql.length()-3);
+            System.out.println(hql);
+            Query query = session.createQuery(hql);
+            ts = query.list();
         } catch (Exception e) {
             e.printStackTrace();
             if (transaction != null) {
                 transaction.rollback();
             }
+        }finally{
+            session.close();
         }
         return ts;
     }
 
     @Override
-    public T getById(T t) {
+    public T getById(Object key) {
+        T hasil = null;
         session = this.sessionFactory.openSession();
         transaction = session.beginTransaction();
         try {
-//            String hql = "FROM " + t.getClass().getSimpleName() + " WHERE "+ t.getClass().getField(t) +" = :a";
-//            Query query = session.createQuery(hql);
-//            query.setParameter("a", t);
-//            t = (T) query.uniqueResult();
-            System.out.println(t.getClass().get);
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        }
-        return t;
-    }
-
-    @Override
-    public List<Region> search(Object key) {
-        List<Region> region = new ArrayList<>();
-        session = this.sessionFactory.openSession();
-        transaction = session.beginTransaction();
-        try {
-            String hql = "FROM Region WHERE lower(regionName) LIKE :a";
+            String hql = "FROM " + t.getClass().getSimpleName() + " WHERE id = :x";
             Query query = session.createQuery(hql);
-            query.setParameter("a", "%" + key.toString().toLowerCase() + "%");
-            region = query.list();
+            query.setParameter("x", key);
+            hasil = (T) query.uniqueResult();
         } catch (Exception e) {
             e.printStackTrace();
             if (transaction != null) {
@@ -89,7 +83,8 @@ public class GeneralDAO<T> implements IGeneralDAO<T> {
         } finally {
             session.close();
         }
-        return region;
+
+        return hasil;
     }
 
     @Override
@@ -115,5 +110,5 @@ public class GeneralDAO<T> implements IGeneralDAO<T> {
         }
         return result;
     }
-}
 
+}

@@ -109,7 +109,7 @@
                           <Component id="btnSave" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                           <Component id="btnDelete" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="12" max="32767" attributes="0"/>
+                          <EmptySpace pref="20" max="32767" attributes="0"/>
                       </Group>
                       <Component id="cbManagerId" alignment="0" max="32767" attributes="0"/>
                   </Group>
@@ -249,12 +249,12 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblManagerId">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Manager Id"/>
+            <Property name="text" type="java.lang.String" value="Manager "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblLocationId">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Location Id"/>
+            <Property name="text" type="java.lang.String" value="Location "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="labelErrorID">
