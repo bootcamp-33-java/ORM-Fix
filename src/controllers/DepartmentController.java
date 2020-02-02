@@ -20,7 +20,7 @@ import org.hibernate.SessionFactory;
  *
  * @author BWP
  */
-public class DepartmentController<T> implements IDepartmentController {
+public class DepartmentController<T> implements IDepartmentController<T> {
 
     private IGeneralDAO<Department> igdao;
     //= new GeneralDAO<>(sessionFactory, Department.class);

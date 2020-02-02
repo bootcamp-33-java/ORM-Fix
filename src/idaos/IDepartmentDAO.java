@@ -13,7 +13,7 @@ import models.Department;
  *
  * @author Galih&Bagus
  */
-public interface IDepartmentDAO {
+public interface IDepartmentDAO<T> {
     public List<Department> getAll();
     public Department getById(Short id);
     public List<Department> search(Object key);

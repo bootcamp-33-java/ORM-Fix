@@ -54,14 +54,14 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         model.addColumn("Name");
         model.addColumn("Manager id");
         model.addColumn("Location id");
-        
+
         List<Employee> empl = iec.getAll();
         for (Employee e : empl) {
-            cbManagerId.addItem(e.getId()+ "-" + e.getLastName());
+            cbManagerId.addItem(e.getId() + "-" + e.getLastName());
         }
         List<Location> loct = ilc.getAll();
         for (Location l : loct) {
-            cbLocationId.addItem(l.getId() + "-"+ l.getStreetAddress());
+            cbLocationId.addItem(l.getId() + "-" + l.getStreetAddress());
         }
         refresh();
     }
@@ -319,6 +319,9 @@ public class DepartmentView extends javax.swing.JInternalFrame {
     }
 
     public void refresh() {
+        txtId.setEditable(true);
+        txtId.setText("");
+        txtName.setText("");
         model.setRowCount(0);
         Object[] row = new Object[5];
         List<Department> departments = idc.getAll();
@@ -398,10 +401,10 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         matcherID = pattern.matcher(txtId.getText());
         String[] managerId = cbManagerId.getSelectedItem().toString().split("-");
         String[] locationId = cbLocationId.getSelectedItem().toString().split("-");
- 
+
         try {
             if (matcherID.matches() && !txtName.getText().equals(null)) {
-                JOptionPane.showMessageDialog(null, idc.save(txtId.getText(), txtName.getText(),managerId[0], locationId[0]));
+                JOptionPane.showMessageDialog(null, idc.save(txtId.getText(), txtName.getText(), managerId[0], locationId[0]));
                 resetTextDepartment();
             } else if (!matcherID.matches()) {
                 labelErrorID.setVisible(true);
@@ -416,10 +419,11 @@ public class DepartmentView extends javax.swing.JInternalFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
 
-        int confirm = JOptionPane.showConfirmDialog(this, "Data anda akan dihapus", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (confirm == JOptionPane.YES_NO_OPTION) {
-            JOptionPane.showMessageDialog(null, idc.delete(txtId.getText()));
-        }
+//        int confirm = JOptionPane.showConfirmDialog(this, "Data anda akan dihapus", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+//        if (confirm == JOptionPane.YES_NO_OPTION) {
+//            JOptionPane.showMessageDialog(null, idc.delete(txtId.getText()));
+//        }
+        idc.delete(txtId.getText());
         refresh();
         resetTextDepartment();
     }//GEN-LAST:event_btnDeleteActionPerformed

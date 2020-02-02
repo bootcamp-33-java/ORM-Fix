@@ -90,11 +90,16 @@ public class GeneralDAO<T> implements IGeneralDAO<T> {
     @Override
     public boolean saveOrDelete(T t, boolean isDelete) {
         boolean result = false;
+        T object;
         try {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
+            System.out.println(t.hashCode());
+            System.out.println(t.getClass().getSimpleName());
+            
             if (isDelete) {
-                session.delete(t);
+                object = (T)session.load(t.getClass().getSimpleName().toLowerCase(),t.hashCode());
+                session.delete(object);
             } else {
                 session.saveOrUpdate(t); //insert & update & delete
             }
